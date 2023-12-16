@@ -1,0 +1,11 @@
+.sidebar-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100%; 
+}
+
+.sidebar-icon {
+    padding: 10px; 
+    cursor: pointer;
+}
