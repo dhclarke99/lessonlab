@@ -1,0 +1,16 @@
+.step-one-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevents scrollbar if content is too large */
+    
+}
+
+.secondary-container {
+    width: 60%; /* Adjust this to make the container less wide */
+    margin: 0 auto; /* Centers the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers children horizontally */
+    text-align: left;
+}
