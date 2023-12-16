@@ -6,6 +6,36 @@
 }
 
 .sidebar-icon {
-    padding: 10px; 
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+
+.sidebar-icon.top {
+   margin-top: 15px;
+}
+
+.sidebar-icon.bottom {
+    margin-bottom: 15px;
+ }
+
+.icon-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%; /* Optional: makes the image circular */
+    margin-right: 10px;
+}
+
+.icon-initials {
+    height: 30px;
+    width: 30px;
+    background-color: #007bff; /* Example color, change as needed */
+    border-radius: 50%; /* Creates a circle */
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
 }
