@@ -1,10 +1,7 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-const { authMiddleware } = require('./utils/auth');
 require('dotenv').config({ path: '../.env' });
-const api = require('./routes/index.js');
-
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
@@ -16,16 +13,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Serve image assets
-app.use('/images', express.static(path.join(__dirname, '../web-client/images')));
+app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
-// Define routes
-app.use('/api', api);
+
 
 // Initialize Apollo Server
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,
+ 
 });
 
 // Start Apollo Server
@@ -36,12 +32,12 @@ const startApolloServer = async () => {
 
   // Serve static files from the React app
   if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../web-client/build')));
+    app.use(express.static(path.join(__dirname, '../client/build')));
   }
 
   // All other GET requests not handled before will return the React app
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../web-client/build/index.html'));
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
   // Start the MongoDB connection
