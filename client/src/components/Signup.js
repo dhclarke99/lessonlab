@@ -5,7 +5,8 @@ const Signup = () => {
     return (
         <div className="signup-container">
             <header className="signup-header">
-                <h1>ChatGPT for teachers</h1>
+                <h1>ChatGPT</h1>
+                <h1 id='for-teachers'>for teachers</h1>
             </header>
             <div className="signup-body">
                 <div className="icon-container">
@@ -27,8 +28,9 @@ const Signup = () => {
                 </div>
                 <div className="input-group">
                     <label>I teach</label>
-                    <input type="text" placeholder="Grade Level" />
-                    <input type="email" placeholder="Subject Area" />
+                    <input type="text" placeholder="grade level" />
+                    <input type="text" placeholder="subject area" />
+                    <p>.</p>
                 </div>
                 <button>Get Started</button>
             </div>
