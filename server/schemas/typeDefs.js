@@ -30,7 +30,7 @@ type Auth {
   }
 
   type Mutation {
-   
+    createUser(input: CreateUserInput!): Auth
     }
     
   
