@@ -1,0 +1,21 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevents scrollbar if content is too large */
+}
+
+
+
+
+
+.signup-header {
+    display: flex;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.signup-footer {
+    padding: 20px;
+    text-align: center;
+}

@@ -8,16 +8,16 @@
 .sidebar-icon {
     display: flex;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 20px;
     
 }
 
 .sidebar-icon.top {
-   margin-top: 15px;
+   margin-top: 20px;
 }
 
 .sidebar-icon.bottom {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
  }
 
 .icon-image {

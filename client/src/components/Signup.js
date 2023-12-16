@@ -4,10 +4,6 @@ import measuringCup from '../assets/images/measuringcup.jpeg'
 const Signup = () => {
     return (
         <div className="signup-container">
-            <header className="signup-header">
-                <h1>ChatGPT</h1>
-                <h1 id='for-teachers'>for teachers</h1>
-            </header>
             <div className="signup-body">
                 <div className="icon-container">
                     <img src={measuringCup} alt="Logo"/>
@@ -34,9 +30,7 @@ const Signup = () => {
                 </div>
                 <button>Get Started</button>
             </div>
-            <footer className="signup-footer">
-                <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, contact us.</p>
-            </footer>
+            
         </div>
     );
 }

@@ -21,11 +21,7 @@ p {
 .body-sentence-container {
     margin-bottom: 50px;
 }
-.signup-header {
-    display: flex;
-    text-align: left;
-    padding-left: 20px;
-}
+
 
 #for-teachers {
     color: #868686;
@@ -75,7 +71,4 @@ button {
     cursor: pointer;
 }
 
-.signup-footer {
-    padding: 20px;
-    text-align: center;
-}
+
