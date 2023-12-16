@@ -6,10 +6,14 @@ import Main from './components/Main.js';
 function App() {
   return (
     <div className="App">
-     <Sidebar />
+        <div className="sidebar">
+            <Sidebar />
+        </div>
+        <div className="main">
             <Main />
+        </div>
     </div>
-  );
+);
 }
 
 export default App;
