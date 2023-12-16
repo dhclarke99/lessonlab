@@ -1,6 +1,6 @@
 import React from 'react';
 import '../utils/css/Signup.css';
-
+import measuringCup from '../assets/images/measuringcup.jpeg'
 const Signup = () => {
     return (
         <div className="signup-container">
@@ -9,13 +9,22 @@ const Signup = () => {
             </header>
             <div className="signup-body">
                 <div className="icon-container">
+                    <img src={measuringCup} alt="Logo"/>
                     {/* Replace with your icon */}
                 </div>
+                <div className="header-container">
                 <h2>Welcome to Lesson Lab!</h2>
+                </div>
+                <div className='sentence-container'>
+                <div className="intro-sentence-container">
                 <p>We're used to being told how to use edtech, but ChatGPT is different.</p>
-                <p>There are no definitive answers and so many possibilities</p>
+                <p>There are no definitive answers and so many possibilities.</p>
+                </div>
+                <div className="body-sentence-container">
                 <p>Use this tool to explore ChatGPT and design how you want to make it work for your classroom.</p>
-                <p>Through guided experiments, you can test out what ChatGPT can do for your unique needs, get familiar with crafting prompts, and contribute to a community of knowledge</p>
+                <p>Through guided experiments, you can test out what ChatGPT can do for your unique needs, get familiar with crafting prompts, and contribute to a community of knowledge.</p>
+                </div>
+                </div>
                 <div className="input-group">
                     <label>I teach</label>
                     <input type="text" placeholder="Grade Level" />
@@ -24,7 +33,7 @@ const Signup = () => {
                 <button>Get Started</button>
             </div>
             <footer className="signup-footer">
-                <p>&copy; 2023 Your Company Name</p>
+                <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, contact us.</p>
             </footer>
         </div>
     );
