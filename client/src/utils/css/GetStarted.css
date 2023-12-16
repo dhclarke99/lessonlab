@@ -14,6 +14,14 @@ p {
 
 }
 
+.sentence-container {
+    min-height: 80px;
+    position: relative; /* Required for absolute positioning of the button */
+    max-width: 70%;
+    margin: 0 auto; /* Centers the chat box horizontally */
+  
+}
+
 .intro-sentence-container {
     margin-bottom: 40px;
 }
