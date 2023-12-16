@@ -14,3 +14,7 @@
     align-items: center; /* Centers children horizontally */
     text-align: left;
 }
+
+.step-one-content {
+    margin-bottom: 40px;
+}

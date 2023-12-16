@@ -1,43 +1,52 @@
 .chat-container {
+    min-height: 80px;
     padding: 10px;
     border: 1px solid #ccc; /* Border around the entire container */
     border-radius: 25px; /* Rounded edges for the container */
     position: relative; /* Required for absolute positioning of the button */
     max-width: 80%;
     margin: 0 auto; /* Centers the chat box horizontally */
+    margin-top: 50px;
 }
 
 .input-container {
     position: relative;
+    border: none
 }
 
 .chat-input {
     width: 100%;
     padding: 15px;
-    padding-right: 50px; /* Consider reducing if too large */
     border: none;
+    padding-right: 50px; /* Consider reducing if too large */
     border-radius: 25px;
     background-color: white;
     box-sizing: border-box; /* Includes padding in the input's width */
+   
+}
+
+.chat-input:focus {
+    outline: none;
+    box-shadow: none; 
 }
 
 .send-button {
     position: absolute;
-    bottom: 10px;
     right: 10px;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
+    border-radius: 20px; /* Adjust for slightly rounded edges */
     border: none;
-    background-color: #007bff;
+    background-color: #579AA0;
     color: white;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 16px; /* Adjust size of the arrow */
+   
 }
 
 .send-button::after {
-    content: '↑';
+    content: '↑'; /* Upward-pointing arrow */
+    color: white; /* Arrow color */
+    font-weight: bold; /* Makes the arrow more prominent */
 }
