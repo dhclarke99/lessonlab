@@ -1,7 +1,7 @@
 import React from 'react';
-import '../utils/css/Signup.css';
+import '../utils/css/GetStarted.css';
 import measuringCup from '../assets/images/measuringcup.jpeg'
-const Signup = () => {
+const GetStarted = () => {
     return (
         <div className="signup-container">
             <div className="signup-body">
@@ -35,4 +35,4 @@ const Signup = () => {
     );
 }
 
-export default Signup;
+export default GetStarted;

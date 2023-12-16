@@ -23,6 +23,13 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
     },
+    gradeLevel: {
+        type: String,
+        edum: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th']
+    },
+    subject: {
+        type: String,
+    }
 
 });
 

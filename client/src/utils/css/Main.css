@@ -9,13 +9,13 @@
 
 
 
-.signup-header {
+.main-header {
     display: flex;
     text-align: left;
     padding-left: 20px;
 }
 
-.signup-footer {
+.main-footer {
     padding: 20px;
     text-align: center;
 }
