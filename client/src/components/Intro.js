@@ -1,5 +1,5 @@
 import React from 'react';
-import '../utils/css/GetStarted.css';
+import '../utils/css/Intro.css';
 import measuringCup from '../assets/images/measuringcup.jpeg'
 
 const Intro = () => {

@@ -6,15 +6,19 @@
     
 }
 
-.secondary-container {
-    width: 60%; /* Adjust this to make the container less wide */
-    margin: 0 auto; /* Centers the container */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers children horizontally */
+.step-one-content {
     text-align: left;
+    margin-left: 10%;
 }
 
-.step-one-content {
-    margin-bottom: 40px;
+.step-one-content p {
+    margin-bottom: -10px;
+}
+
+.step-one-content button {
+    margin-top: 15px;
+}
+
+h1 {
+    font-size: 20px;
 }

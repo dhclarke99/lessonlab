@@ -1,0 +1,32 @@
+p {
+    color: #868686;
+
+}
+
+.header-container {
+
+}
+
+.sentence-container {
+    min-height: 80px;
+    position: relative; /* Required for absolute positioning of the button */
+    max-width: 70%;
+    margin: 0 auto; /* Centers the chat box horizontally */
+  
+}
+
+.intro-sentence-container {
+    margin-bottom: 40px;
+}
+
+.body-sentence-container {
+    margin-bottom: 50px;
+}
+
+.intro-sentence-container p {
+    margin-bottom: -15px;
+}
+
+.body-sentence-container p {
+    margin-bottom: -15px;
+}
