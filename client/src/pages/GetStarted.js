@@ -1,6 +1,6 @@
 import React from 'react';
 import '../utils/css/GetStarted.css';
-import measuringCup from '../assets/images/measuringcup.jpeg';
+
 import Intro from '../components/Intro.js'
 
 

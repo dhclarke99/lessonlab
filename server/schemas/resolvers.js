@@ -38,6 +38,36 @@ const resolvers = {
           throw new Error('Failed to create user');
         }
       },
+      login: async (_parent, { email, password }) => {
+        try {
+          const user = await User.findOne({ email });
+          if (!user) {
+            throw new AuthenticationError('Invalid email');
+          }
+          
+  
+          const correctPassword = await user.isCorrectPassword(password);
+  
+          
+  
+          if (!correctPassword) {
+            throw new AuthenticationError('Invalid password');
+          }
+          const token = signToken(user);
+          return { token, user };
+        } catch (err) {
+          console.log(err);
+          throw new Error('Failed to login');
+        }
+      },
+      logout: (_, __, context) => {
+        // If using cookies
+        context.res.clearCookie('token');
+        
+        // Additional server-side logic if needed
+        
+        return true;
+      },
   }
 }
 

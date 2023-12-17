@@ -1,12 +1,13 @@
-.step-one-container {
+.step-two-container {
     display: flex;
     flex-direction: column;
     height: 100vh; /* Full height of the viewport */
     overflow: auto; /* Prevents scrollbar if content is too large */
     
-}
+} 
 
-.step-one-content {
+
+.step-two-content {
     display: flex;
     flex-direction: row;
     text-align: left;
@@ -14,15 +15,15 @@
 }
 
 
-.step-one-content p {
+.step-two-content p {
     margin-bottom: -15px;
 }
 
-.step-one-content button {
+.step-two-content button {
     margin-top: 20px;
 }
 
-.step-one-content h1 {
+.step-two-content h1 {
     font-size: 20px;
     font-weight: 350;
 }

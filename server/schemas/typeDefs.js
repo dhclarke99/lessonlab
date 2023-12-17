@@ -31,6 +31,8 @@ type Auth {
 
   type Mutation {
     createUser(input: CreateUserInput!): Auth
+    login(email: String!, password: String!): Auth
+    logout: Boolean
     }
     
   
