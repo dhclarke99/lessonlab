@@ -34,3 +34,16 @@ mutation logout {
 }
 `;
 
+export const UPDATE_USER = gql`
+mutation updateUser($userId: ID!, $input: UpdateUserInput!) {
+    updateUser(userId: $userId, input: $input) {
+      _id
+      email
+      firstname
+      lastname
+      gradeLevel
+      subject
+    }
+  }
+`
+

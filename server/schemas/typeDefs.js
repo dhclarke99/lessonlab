@@ -7,6 +7,8 @@ type User {
   firstname: String
   lastname: String
   email: String
+  gradeLevel: String
+  subject: String
 }
 
 
@@ -16,6 +18,16 @@ input CreateUserInput {
   email: String!
   password: String!
 
+}
+
+
+input UpdateUserInput {
+  firstname: String
+  lastname: String
+  email: String
+  password: String
+  gradeLevel: String
+  subject: String
 }
 
 type Auth {
@@ -31,6 +43,7 @@ type Auth {
 
   type Mutation {
     createUser(input: CreateUserInput!): Auth
+    updateUser(userId: ID!, input: UpdateUserInput!): User
     login(email: String!, password: String!): Auth
     logout: Boolean
     deleteUser(userId: ID!): User

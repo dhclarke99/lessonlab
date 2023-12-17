@@ -7,6 +7,8 @@ query getUserById($userId: String!) {
       email
       firstname
       lastname
+      gradeLevel
+    subject
     }
   }
 `
