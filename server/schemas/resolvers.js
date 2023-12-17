@@ -16,8 +16,10 @@ const resolvers = {
   },
   Mutation: { 
     createUser: async (_parent, { input }) => {
+      
         try {
-          const { firstname, lastname, email, password, topSchools, sport, graduationYear, rating, academicInterests, personalStatement, athleticAchievements, position } = input;
+          console.log("creating user...")
+          const { firstname, lastname, email, password } = input;
           const user = await User.create({
   
             firstname,
@@ -29,10 +31,12 @@ const resolvers = {
           await user.save();
   
           const token = signToken(user);
+          console.log(token, user)
           return {
             token,
             user
           }
+          
         } catch (err) {
           console.log(err);
           throw new Error('Failed to create user');
