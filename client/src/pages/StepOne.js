@@ -15,8 +15,7 @@ const StepOne = () => {
                 <p>Which academic standard do students struggle to meet?</p>
                 <button>See examples</button>
             </div>
-            <ChatBox />
-     
+    
            
         </div>
     );
