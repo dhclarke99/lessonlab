@@ -1,10 +1,10 @@
 import React from 'react';
 import '../utils/css/GetStarted.css';
-
 import Intro from '../components/Intro.js'
 
 
 const GetStarted = ({ onGetStartedClick }) => {
+
     return (
         <div className="signup-container">
             <div className="signup-body">

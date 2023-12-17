@@ -43,6 +43,7 @@ const resolvers = {
         }
       },
       login: async (_parent, { email, password }) => {
+        
         try {
           const user = await User.findOne({ email });
           if (!user) {
