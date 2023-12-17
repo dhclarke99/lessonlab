@@ -6,9 +6,6 @@
     text-align: center;
 }
 
-
-
-
 #for-teachers {
     color: #868686;
     margin-left: 4px;
@@ -40,6 +37,14 @@
 }
 
 .input-group input {
+    padding: 10px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    background-color: #E1F3F5;
+    text-align: center;
+}
+
+.input-group select {
     padding: 10px;
     border-radius: 50px;
     border: 1px solid #ccc;
