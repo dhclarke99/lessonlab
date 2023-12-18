@@ -29,7 +29,12 @@ const userSchema = new Schema({
     },
     subject: {
         type: String,
-    }
+    },
+    getStartedPrompts: [
+        {
+            type: String
+        }
+    ]
 
 });
 
