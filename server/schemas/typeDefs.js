@@ -9,6 +9,7 @@ type User {
   email: String
   gradeLevel: String
   subject: String
+  getStartedPrompts: [String]
 }
 
 
@@ -28,6 +29,7 @@ input UpdateUserInput {
   password: String
   gradeLevel: String
   subject: String
+  getStartedPrompts: [String] 
 }
 
 type Auth {
