@@ -11,11 +11,19 @@ const SignUp = () => {
         email: '',
         password: ''
     });
+    const [loginFormData, setloginFormData] = useState({
+        email: '',
+        password: ''
+    });
     const [createUser, { error, data }] = useMutation(CREATE_USER);
 const [loginUser] = useMutation(LOGIN_USER);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleLoginChange = (e) => {
+        setloginFormData({ ...loginFormData, [e.target.name]: e.target.value });
     };
 
     const handleFormSubmit = async (event) => {
@@ -26,7 +34,7 @@ const [loginUser] = useMutation(LOGIN_USER);
             variables: { input: { ...formData, } },
           });
     console.log(data)
-          Auth.login(data.createUser.token);
+          Auth.signUp(data.createUser.token, data);
         } catch (e) {
           console.error(e);
         }
@@ -37,13 +45,11 @@ const [loginUser] = useMutation(LOGIN_USER);
       
     const handleLogin = async (event) => {
         event.preventDefault();
-        console.log(formData)
-        const {firstname, lastname, ...cleanedFormData} = {...formData}
-        console.log(cleanedFormData)
+        console.log(loginFormData)
         try {
             
           const { data } = await loginUser({
-            variables: { ...cleanedFormData, },
+            variables: { ...loginFormData, },
           });
     console.log(data)
    
@@ -96,16 +102,16 @@ const [loginUser] = useMutation(LOGIN_USER);
             <input 
                 type="email" 
                 name="email" 
-                value={formData.email} 
-                onChange={handleChange} 
+                value={loginFormData.email} 
+                onChange={handleLoginChange} 
                 placeholder="Email" 
                 required 
             />
             <input 
                 type="password" 
                 name="password" 
-                value={formData.password} 
-                onChange={handleChange} 
+                value={loginFormData.password} 
+                onChange={handleLoginChange} 
                 placeholder="Password" 
                 required 
             />
