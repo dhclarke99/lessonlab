@@ -3,7 +3,7 @@ import Intro from '../components/Intro'
 import measuringCup from '../assets/images/measuringcup.jpeg';
 import '../utils/css/StepOne.css';
 
-const StepOne = ({ onStepOneClick }) => {
+const StepOne = () => {
     return (
         <div className="step-one-container">
           

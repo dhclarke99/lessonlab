@@ -43,6 +43,7 @@ mutation updateUser($userId: ID!, $input: UpdateUserInput!) {
       lastname
       gradeLevel
       subject
+      getStartedPrompts
     }
   }
 `

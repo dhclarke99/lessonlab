@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER } from '../utils/mutations';
 import '../utils/css/GetStarted.css';
 import Intro from '../components/Intro.js'
+import Auth from '../utils/auth';
 
 
 const GetStarted = ({ onGetStartedClick }) => {
+    const [formData, setFormData] = useState({
+        gradeLevel: '',
+        subject: '',
+        
+    });
+
+    const [updateUser, { error, data }] = useMutation(UPDATE_USER);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            console.log(formData)
+          const { data } = await UPDATE_USER({
+            variables: { input: { ...formData, } },
+          });
+    console.log(data)
+        } catch (e) {
+          console.error(e);
+        }
+    
+    
+      };
 
     return (
         <div className="signup-container">

@@ -24,7 +24,7 @@ const Main = () => {
             </header>
             {currentPage === 'getStarted' || currentPage === 'stepOne' && <Intro />}
             {currentPage === 'getStarted' && <GetStarted onGetStartedClick={handleGetStartedClick} />}
-            {currentPage === 'stepOne' && <StepOne onStepOneClick={handleStepOneClick}/>}
+            {currentPage === 'stepOne' && <StepOne />}
             {currentPage === 'stepTwo' && <StepTwo />}
             {currentPage !== 'getStarted' && <ChatBox onStepOneClick={handleStepOneClick}/>}
             <footer className="main-footer">
