@@ -46,8 +46,8 @@ const [loginUser] = useMutation(LOGIN_USER);
             variables: { ...cleanedFormData, },
           });
     console.log(data)
-    localStorage.setItem("userId", data.login.user._id)
-          Auth.login(data.login.token);
+   
+          Auth.login(data.login.token, data);
         } catch (e) {
           console.error(e);
         }
