@@ -7,6 +7,7 @@ import Auth from '../utils/auth';
 
 
 const GetStarted = ({ onGetStartedClick }) => {
+    const id = localStorage.getItem('userId')
     const [formData, setFormData] = useState({
         gradeLevel: '',
         subject: '',
@@ -23,10 +24,11 @@ const GetStarted = ({ onGetStartedClick }) => {
         event.preventDefault();
         try {
             console.log(formData)
-          const { data } = await UPDATE_USER({
-            variables: { input: { ...formData, } },
+          const { data } = await updateUser({
+            variables: { userId: id, input: { ...formData } },
           });
     console.log(data)
+    onGetStartedClick();
         } catch (e) {
           console.error(e);
         }
@@ -43,6 +45,7 @@ const GetStarted = ({ onGetStartedClick }) => {
                     <select type="text"
                 name="gradeLevel"
                 placeholder='grade level'
+                onChange={handleChange}
                 
                 >
                   <option value='' disabled>Select One</option>
@@ -59,10 +62,10 @@ const GetStarted = ({ onGetStartedClick }) => {
                 <option value="1st Grade">11th Grade</option>
                 <option value="1st Grade">12th Grade</option>
               </select>
-                    <input type="text" placeholder="subject area" />
+                    <input type="text" name='subject' onChange={handleChange} placeholder="subject area" />
                     <p>.</p>
                 </div>
-                <button onClick={onGetStartedClick}>Get Started</button>
+                <button onClick={handleFormSubmit}>Get Started</button>
             </div>
             
         </div>
