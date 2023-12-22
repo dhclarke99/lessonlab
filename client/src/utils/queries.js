@@ -9,6 +9,7 @@ query getUserById($userId: String!) {
       lastname
       gradeLevel
     subject
+    getStartedPrompts
     }
   }
 `

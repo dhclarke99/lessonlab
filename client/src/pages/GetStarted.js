@@ -50,17 +50,17 @@ const GetStarted = ({ onGetStartedClick }) => {
                 >
                   <option value='' disabled>Select One</option>
                 <option value="1st Grade">1st Grade</option>
-                <option value="1st Grade">2nd Grade</option>
-                <option value="1st Grade">3rd Grade</option>
-                <option value="1st Grade">4th Grade</option>
-                <option value="1st Grade">5th Grade</option>
-                <option value="1st Grade">6th Grade</option>
-                <option value="1st Grade">7th Grade</option>
-                <option value="1st Grade">8th Grade</option>
-                <option value="1st Grade">9th Grade</option>
-                <option value="1st Grade">10th Grade</option>
-                <option value="1st Grade">11th Grade</option>
-                <option value="1st Grade">12th Grade</option>
+                <option value="2nd Grade">2nd Grade</option>
+                <option value="3rd Grade">3rd Grade</option>
+                <option value="4th Grade">4th Grade</option>
+                <option value="5th Grade">5th Grade</option>
+                <option value="6th Grade">6th Grade</option>
+                <option value="7th Grade">7th Grade</option>
+                <option value="8th Grade">8th Grade</option>
+                <option value="9th Grade">9th Grade</option>
+                <option value="10th Grade">10th Grade</option>
+                <option value="11th Grade">11th Grade</option>
+                <option value="12th Grade">12th Grade</option>
               </select>
                     <input type="text" name='subject' onChange={handleChange} placeholder="subject area" />
                     <p>.</p>

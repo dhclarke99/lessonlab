@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100vh; /* Full height of the viewport */
     overflow: auto; /* Prevents scrollbar if content is too large */
-    
+    margin-bottom: 12px;
 } 
 
 
@@ -12,6 +12,7 @@
     flex-direction: row;
     text-align: left;
     margin-left: 10%;
+    margin-bottom: 12px;
 }
 
 

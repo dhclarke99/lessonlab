@@ -1,9 +1,8 @@
 .step-one-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full height of the viewport */
     overflow: auto; /* Prevents scrollbar if content is too large */
-    
+    margin-bottom: 12px;
 }
 
 .step-one-content {
