@@ -7,6 +7,7 @@
 
 .scrollable {
     overflow: scroll;
+    scroll-behavior: smooth;
 }
 
 

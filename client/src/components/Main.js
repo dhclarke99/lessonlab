@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../utils/css/Main.css';
 import GetStarted from '../pages/GetStarted.js';
 import StepOne from '../pages/StepOne.js';
@@ -10,10 +10,20 @@ import Intro from './Intro.js';
 
 const Main = () => {
     const [currentPage, setCurrentPage] = useState('getStarted'); // Initial state set to 'getStarted'
+    const scrollableRef = useRef(null);
 
+    const scrollToBottom = () => {
+        // Scroll the div to the bottom
+        console.log('scrolling')
+        const scrollable = scrollableRef.current;
+        if(scrollable) {
+            scrollable.scrollTop = scrollable.scrollHeight;
+        }
+    };
     const handleGetStartedClick = () => {
         setCurrentPage('stepOne'); // Function to update state to 'stepOne'
     };
+
     const handleStepOneClick = () => {
         if (currentPage === 'stepOne') {
             setCurrentPage('stepTwo');
@@ -24,9 +34,12 @@ const Main = () => {
         else if (currentPage === 'stepThree') {
             setCurrentPage('stepFour')
         }
-        
+        scrollToBottom();
     };
   
+    useEffect(() => {
+        scrollToBottom();
+    }, [currentPage]);
 
     return (
         <div className="main">
@@ -38,7 +51,7 @@ const Main = () => {
 
             {currentPage === 'getStarted' || currentPage === 'stepOne' && <Intro />}
             {currentPage === 'getStarted' && <GetStarted onGetStartedClick={handleGetStartedClick} />}
-            <div className='scrollable'>
+            <div className='scrollable' ref={scrollableRef}>
             {currentPage === 'stepOne' && <StepOne />}
             {currentPage === 'stepTwo' && <StepTwo />}
             {currentPage === 'stepThree' && <StepThree />}
