@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
 import StepTwo from './StepTwo'
 import measuringCup from '../assets/images/measuringcup.jpeg';
-import '../utils/css/StepTwo.css';
+import '../utils/css/StepThree.css';
 import Auth from '../utils/auth';
 
 const StepThree = () => {
@@ -16,18 +16,18 @@ const StepThree = () => {
     const firstInitial = userData.user.firstname[0];
     console.log(userData)
     return (
-        <div className="step-two-container">
+        <div className="step-three-container">
             <StepTwo />
-            <div className='step-two-content'>
-            <div className='step-two-header'>
+            <div className='step-three-content'>
+            <div className='step-three-header'>
             <span className="icon-initials">{firstInitial}</span>
 
                 </div>
             <header>{userData.user.firstname}</header>
             <p>{userData.user.getStartedPrompts[1]}</p>
             </div>
-            <div className='step-two-content'>
-                <div className='step-two-header'>
+            <div className='step-three-content'>
+                <div className='step-three-header'>
                     <img src={measuringCup} alt="Icon" className="icon-image" />
                    
                 </div>

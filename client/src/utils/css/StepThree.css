@@ -1,11 +1,11 @@
-.step-two-container {
+.step-three-container {
     display: flex;
     flex-direction: column;
     margin-bottom: 12px;
 } 
 
 
-.step-two-content {
+.step-three-content {
     display: flex;
     flex-direction: row;
     text-align: left;
@@ -14,15 +14,15 @@
 }
 
 
-.step-two-content p {
+.step-three-content p {
     margin-bottom: -15px;
 }
 
-.step-two-content button {
+.step-three-content button {
     margin-top: 20px;
 }
 
-.step-two-content h1 {
+.step-three-content h1 {
     font-size: 20px;
     font-weight: 350;
 }
