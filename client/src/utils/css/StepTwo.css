@@ -15,8 +15,9 @@
 
 .user-response {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: left;
+    margin-left: 10%;
     margin-bottom: 12px;
 }
 
@@ -31,9 +32,6 @@
     font-weight: 350;
 }
 
-.user-response-body {
-    margin-left: 5%
- }
 
 .step-two-content p {
     margin-bottom: -15px;

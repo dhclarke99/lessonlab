@@ -21,11 +21,9 @@ const StepFour = () => {
             <div className='user-response'>
             <div className='user-response-header'>
             <span className="icon-initials">{firstInitial}</span>
-
-               
-            <header>{userData.user.firstname}</header>
             </div>
-            <div className='user-response-body'>
+            <div>
+            <header>{userData.user.firstname}</header>
             <h1>{userData.user.getStartedPrompts[2]}</h1>
             </div>
             
