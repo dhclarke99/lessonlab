@@ -34,18 +34,21 @@ const StepFour = () => {
                 <div>
                 <header>Lesson Lab</header>
                 <h1>To help students develop stronger arguments when connecting evidence to their claims, ChatGPT can help in several ways. Select one of the following for this experiment, but later there will be an opportunity to test all options.</h1>
-                <div>
+                <div className='buttons'>
+                <button className='experiment-btn'>
                     <h1>Help me prepare instructional materials</h1>
                 <p>What is one reason that some students find the objective challenging?</p>
-                </div>
-                <div>
+                </button>
+                <button className='experiment-btn'>
                     <h1>Help me plan classroom activities</h1>
                 <p>What is one reason that some students find the objective challenging?</p>
-                </div>
-                <div>
+                </button>
+                <button className='experiment-btn'>
                     <h1>Help me design a student learning tool</h1>
                 <p>What is one reason that some students find the objective challenging?</p>
+                </button>
                 </div>
+               
                 
                 </div>
             </div>

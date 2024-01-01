@@ -14,15 +14,28 @@
 }
 
 
-.step-four-content p {
-    margin-bottom: -15px;
-}
-
-.step-four-content button {
-    margin-top: 20px;
-}
-
 .step-four-content h1 {
     font-size: 20px;
     font-weight: 350;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+}
+
+.experiment-btn {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    border-style: solid;
+    border-color: #00000014;
+    background-color: white;
+}
+
+.experiment-btn h1 {
+    color: black;
+    margin-top: 5px;
+    margin-bottom: 0px;
 }
