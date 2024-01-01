@@ -18,13 +18,17 @@ const StepFour = () => {
     return (
         <div className="step-four-container">
             <StepThree />
-            <div className='step-four-content'>
-            <div className='step-four-header'>
+            <div className='user-response'>
+            <div className='user-response-header'>
             <span className="icon-initials">{firstInitial}</span>
 
-                </div>
+               
             <header>{userData.user.firstname}</header>
-            <p>{userData.user.getStartedPrompts[2]}</p>
+            </div>
+            <div className='user-response-body'>
+            <h1>{userData.user.getStartedPrompts[2]}</h1>
+            </div>
+            
             </div>
             <div className='step-four-content'>
                 <div className='step-four-header'>
