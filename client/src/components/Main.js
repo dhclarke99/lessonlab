@@ -3,6 +3,7 @@ import '../utils/css/Main.css';
 import GetStarted from '../pages/GetStarted.js';
 import StepOne from '../pages/StepOne.js';
 import StepTwo from '../pages/StepTwo.js';
+import StepThree from '../pages/StepThree.js';
 import ChatBox from './ChatBox.js';
 import Intro from './Intro.js';
 
@@ -13,8 +14,15 @@ const Main = () => {
         setCurrentPage('stepOne'); // Function to update state to 'stepOne'
     };
     const handleStepOneClick = () => {
-        setCurrentPage('stepTwo'); // Function to update state to 'stepOne'
+        if (currentPage === 'stepOne') {
+            setCurrentPage('stepTwo');
+        }
+       else if (currentPage === 'stepTwo') {
+            setCurrentPage('stepThree')
+        }
+        
     };
+  
 
     return (
         <div className="main">
@@ -26,6 +34,7 @@ const Main = () => {
             {currentPage === 'getStarted' && <GetStarted onGetStartedClick={handleGetStartedClick} />}
             {currentPage === 'stepOne' && <StepOne />}
             {currentPage === 'stepTwo' && <StepTwo />}
+            {currentPage === 'stepThree' && <StepThree />}
             {currentPage !== 'getStarted' && <ChatBox onStepOneClick={handleStepOneClick}/>}
             <footer className="main-footer">
                 <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, <a href='hey'>contact us.</a></p>
