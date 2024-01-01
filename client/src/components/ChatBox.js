@@ -5,6 +5,7 @@ import '../utils/css/ChatBox.css';
 
 const ChatBox = ({ onStepOneClick }) => {
     const [inputValue, setInputValue] = useState('');
+    const [step, setStep] = useState(1);
     const id = localStorage.getItem('userId')
     const [formData, setFormData] = useState({
         getStartedPrompts: [],
@@ -24,6 +25,11 @@ const ChatBox = ({ onStepOneClick }) => {
             // Update formData.getStartedPrompts with the current inputValue
             const updatedPrompts = [...formData.getStartedPrompts, inputValue];
 
+            setFormData({
+                ...formData,
+                getStartedPrompts: updatedPrompts
+            });
+            
             const { data } = await updateUser({
                 variables: { userId: id, input: { ...formData, getStartedPrompts: updatedPrompts } },
             });
@@ -31,7 +37,8 @@ const ChatBox = ({ onStepOneClick }) => {
 
             // Clear the input field
             setInputValue("");
-
+ // Increment the step
+ setStep(prevStep => prevStep + 1);
             onStepOneClick();
 
         } catch (e) {
@@ -47,8 +54,8 @@ const ChatBox = ({ onStepOneClick }) => {
                     className="chat-input"
                     name='getStartedPrompts'
                     onChange={handleChange}
-                    placeholder="Type your message here..."
-                    value={inputValue}  // Control the input with inputValue
+                    placeholder="Type your response here..."
+                    value={inputValue}
                 />
                 <button className="send-button" onClick={handleFormSubmit}></button>
             </div>
