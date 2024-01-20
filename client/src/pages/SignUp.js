@@ -62,6 +62,7 @@ const [loginUser] = useMutation(LOGIN_USER);
     return (
         <div>
         <form onSubmit={handleFormSubmit}>
+            <h1>Sign Up</h1>
             <input 
                 type="text" 
                 name="firstname" 
