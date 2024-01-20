@@ -1,5 +1,5 @@
 const User = require('./user');
+const Experiment = require('./experiment');
 
 
-
-module.exports = { User }; 
+module.exports = { User, Experiment }; 

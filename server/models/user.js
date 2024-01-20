@@ -30,10 +30,13 @@ const userSchema = new Schema({
     subject: {
         type: String,
     },
-    experiment: {
-        type: Schema.Types.ObjectId,
-        ref: 'Experiment',
-    },
+    experiments: [
+        {
+            experiment: {
+                type: Schema.Types.ObjectId,
+                ref: 'Experiment',
+            }
+        }],
     getStartedPrompts: [
         {
             type: String

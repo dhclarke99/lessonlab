@@ -9,4 +9,6 @@ const experimentSchema = new Schema({
 ]
 });
 
-module.exports = model('Experiment', experimentSchema);
+const Experiment = model('Experiment', experimentSchema);
+
+module.exports = Experiment;

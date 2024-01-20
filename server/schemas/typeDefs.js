@@ -9,6 +9,12 @@ type User {
   email: String
   gradeLevel: String
   subject: String
+  experiments: [Experiment]
+  getStartedPrompts: [String]
+}
+
+type Experiment {
+  title: String
   getStartedPrompts: [String]
 }
 
