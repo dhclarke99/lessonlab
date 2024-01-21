@@ -14,6 +14,7 @@ type User {
 }
 
 type Experiment {
+  _id: ID
   title: String
   getStartedPrompts: [String]
 }
@@ -27,6 +28,10 @@ input CreateUserInput {
 
 }
 
+input CreateExperimentInput {
+  _id: ID
+}
+
 
 input UpdateUserInput {
   firstname: String
@@ -36,6 +41,11 @@ input UpdateUserInput {
   gradeLevel: String
   subject: String
   getStartedPrompts: [String] 
+}
+
+input UpdateExperimentInput {
+  title: String
+  getStartedPrompts: [String]
 }
 
 type Auth {
@@ -52,6 +62,7 @@ type Auth {
   type Mutation {
     createUser(input: CreateUserInput!): Auth
     updateUser(userId: ID!, input: UpdateUserInput!): User
+    updateExperiment(experimentId: ID!, input: UpdateExperimentInput): Experiment
     login(email: String!, password: String!): Auth
     logout: Boolean
     deleteUser(userId: ID!): User
