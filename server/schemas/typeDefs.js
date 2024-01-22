@@ -9,10 +9,13 @@ type User {
   email: String
   gradeLevel: String
   subject: String
-  experiments: [Experiment]
+  experiments: [ExperimentForUser]
   getStartedPrompts: [String]
 }
 
+type ExperimentForUser {
+  experiment: Experiment
+}
 type Experiment {
   _id: ID
   title: String
@@ -40,7 +43,7 @@ input UpdateUserInput {
   password: String
   gradeLevel: String
   subject: String
-  experiments: ID
+  experiments: [String]
   getStartedPrompts: [String] 
 }
 

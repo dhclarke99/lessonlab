@@ -1,6 +1,13 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const experimentSchema = new Schema({
+    experiment: {
+      type: Schema.Types.ObjectId,
+      ref: 'Experiment'
+    },
+  });
+
 const userSchema = new Schema({
     firstname: {
         type: String,
@@ -30,13 +37,7 @@ const userSchema = new Schema({
     subject: {
         type: String,
     },
-    experiments: [
-        {
-            experiment: {
-                type: Schema.Types.ObjectId,
-                ref: 'Experiment',
-            }
-        }],
+    experiments: [experimentSchema],
     getStartedPrompts: [
         {
             type: String

@@ -1,13 +1,14 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Experiment} = require('../models');
 const { signToken } = require('../utils/auth');
+const mongoose = require('mongoose'); 
 
 const resolvers = {
   Query: {
     users: async (_parent, _args, context) => {
 
 
-      return await User.find()
+      return await User.find().populate('experiments.experiment')
     },
     experiments: async (_parent, _args, context) => {
 
@@ -16,7 +17,7 @@ const resolvers = {
     },
     user: async (_parent, { id }) => {
 
-      return await User.findOne({ _id: id })
+      return await User.findOne({ _id: id }).populate('experiments.experiment')
     },
     experiment: async (_parent, { id }) => {
 
@@ -59,11 +60,8 @@ const resolvers = {
           const experiment = await Experiment.create({ 
             title
           });
-        
 
-          return {
-            experiment
-          }
+          return experiment
           
         } catch (err) {
           console.log(err);
@@ -103,10 +101,19 @@ const resolvers = {
       },
       updateUser: async (_, { userId, input }) => {
         try {
+          // If 'experiments' field is present in the input, handle its update
+          if (input.experiments) {
+            // Convert experiment string IDs to ObjectId, if necessary
+            input.experiments = input.experiments.map(experimentId => {
+              return { experiment: mongoose.Types.ObjectId(experimentId) };
+            });
+          }
+      
           // Filter out any fields that are null or undefined
           const updateFields = Object.fromEntries(
             Object.entries(input).filter(([_, value]) => value != null)
           );
+      
           // Find the user by ID and update it
           const updatedUser = await User.findByIdAndUpdate(
             userId,
@@ -116,18 +123,46 @@ const resolvers = {
               runValidators: true, 
               context: 'query'  // This ensures that the pre-save middleware runs
             }
-          );
-          
-    
+          ).populate('experiments.experiment'); // Populate experiments to return their details
+      
+          console.log(updatedUser); // Debugging: log the updated user
           // If the user doesn't exist, throw an error
           if (!updatedUser) {
             throw new Error('User not found');
           }
-    
+      
           return updatedUser;
         } catch (error) {
           console.error("Error in updateUser:", error);
           throw new Error("Failed to update user");
+        }
+      },
+      
+      updateExperiment: async (_, { experimentId, input }) => {
+        try {
+          // Filter out any fields that are null or undefined
+          const updateFields = Object.fromEntries(
+            Object.entries(input).filter(([_, value]) => value != null)
+          );
+          // Find the user by ID and update it
+          const updatedExperiment = await Experiment.findByIdAndUpdate(
+            experimentId,
+            { $set: updateFields },
+            { 
+              new: true, 
+              runValidators: true, 
+              context: 'query'  // This ensures that the pre-save middleware runs
+            }
+          );
+ 
+          if (!updatedExperiment) {
+            throw new Error('Experiment not found');
+          }
+    
+          return updatedExperiment;
+        } catch (error) {
+          console.error("Error in updating Experiment:", error);
+          throw new Error("Failed to update Experiment");
         }
       },
       deleteUser: async (_, { userId }) => {
