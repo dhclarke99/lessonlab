@@ -138,6 +138,14 @@ const resolvers = {
           throw new Error("Failed to delete User");
         }
       },
+      deleteExperiment: async (_, { experimentId }) => {
+        try {
+          return await Experiment.findByIdAndDelete(experimentId);
+        } catch (error) {
+          console.error("Error in deleting Experiment:", error);
+          throw new Error("Failed to delete Experiment");
+        }
+      },
   }
 }
 

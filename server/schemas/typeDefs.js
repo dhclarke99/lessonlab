@@ -70,6 +70,7 @@ type Auth {
     login(email: String!, password: String!): Auth
     logout: Boolean
     deleteUser(userId: ID!): User
+    deleteExperiment(experimentId: ID!): Experiment
     }
     
   
