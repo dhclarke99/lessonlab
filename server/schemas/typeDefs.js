@@ -29,7 +29,7 @@ input CreateUserInput {
 }
 
 input CreateExperimentInput {
-  _id: ID
+  title: String!
 }
 
 
@@ -40,6 +40,7 @@ input UpdateUserInput {
   password: String
   gradeLevel: String
   subject: String
+  experiments: ID
   getStartedPrompts: [String] 
 }
 
@@ -55,12 +56,15 @@ type Auth {
 
   type Query {
     users: [User]
+    experiments: [Experiment]
     user(id: String!): User
+    experiment(id: String!): Experiment
     me: User
   }
 
   type Mutation {
     createUser(input: CreateUserInput!): Auth
+    createExperiment(input: CreateExperimentInput!): Experiment
     updateUser(userId: ID!, input: UpdateUserInput!): User
     updateExperiment(experimentId: ID!, input: UpdateExperimentInput): Experiment
     login(email: String!, password: String!): Auth

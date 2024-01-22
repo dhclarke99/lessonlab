@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User} = require('../models');
+const { User, Experiment} = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -9,9 +9,18 @@ const resolvers = {
 
       return await User.find()
     },
+    experiments: async (_parent, _args, context) => {
+
+
+      return await Experiment.find()
+    },
     user: async (_parent, { id }) => {
 
       return await User.findOne({ _id: id })
+    },
+    experiment: async (_parent, { id }) => {
+
+      return await Experiment.findOne({ _id: id })
     },
   },
   Mutation: { 
@@ -40,6 +49,25 @@ const resolvers = {
         } catch (err) {
           console.log(err);
           throw new Error('Failed to create user');
+        }
+      },
+      createExperiment: async (_parent, { input }) => {
+      
+        try {
+          console.log("creating experiment...")
+          const { title } = input;
+          const experiment = await Experiment.create({ 
+            title
+          });
+        
+
+          return {
+            experiment
+          }
+          
+        } catch (err) {
+          console.log(err);
+          throw new Error('Failed to create experiment');
         }
       },
       login: async (_parent, { email, password }) => {
