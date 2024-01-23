@@ -48,3 +48,24 @@ mutation updateUser($userId: ID!, $input: UpdateUserInput!) {
   }
 `
 
+export const CREATE_EXPERIMENT = gql`
+mutation createExperiment($input: CreateExperimentInput!) {
+  createExperiment(input: $input) {
+    title
+    _id
+    getStartedPrompts
+    
+  }
+}
+`
+
+export const DELETE_EXPERIMENT = gql`
+mutation deleteExperiment($experimentId: ID!, $userId: ID!) {
+  deleteExperiment(experimentId: $experimentId, userId: $userId) {
+    title
+    _id
+    getStartedPrompts
+  }
+}
+`
+

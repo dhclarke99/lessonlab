@@ -187,14 +187,32 @@ console.log("seconcContext: ", context)
         throw new Error("Failed to delete User");
       }
     },
-    deleteExperiment: async (_, { experimentId }) => {
+    deleteExperiment: async (_, { experimentId, userId }) => {
       try {
-        return await Experiment.findByIdAndDelete(experimentId);
+        // Find the user
+        const user = await User.findById(userId);
+        if (!user) {
+          throw new Error('User not found');
+        }
+    
+        // Manually update the experiments array
+        user.experiments = user.experiments.filter(exp => exp.experiment.toString() !== experimentId);
+        await user.save();
+    
+        // Delete the experiment
+        const experiment = await Experiment.findByIdAndDelete(experimentId);
+        if (!experiment) {
+          throw new Error('Experiment not found');
+        }
+    
+        return user; // Or any other appropriate response
       } catch (error) {
-        console.error("Error in deleting Experiment:", error);
+        console.error("Error in deleteExperiment:", error);
         throw new Error("Failed to delete Experiment");
       }
     },
+    
+    
   }
 }
 

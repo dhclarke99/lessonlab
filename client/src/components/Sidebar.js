@@ -9,6 +9,7 @@ const Sidebar = () => {
     const [showLogout, setShowLogout] = useState(false);
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
         variables: { userId: Auth.getProfile().data._id },
+        fetchPolicy: "network-only"
     });
 
     const [showMenu, setShowMenu] = useState(false);
@@ -24,12 +25,18 @@ const Sidebar = () => {
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
     const firstInitial = userData.user.firstname[0];
-
+console.log(userData)
     return (
         <div className="sidebar-component">
             <div className="sidebar-icon top">
                 <img src={measuringCup} alt="Icon" className="icon-image" />
                 New Experiment
+            </div>
+            <div className='existing-experiments'>
+                <h3>My Experiments</h3>
+                {userData.user.experiments.map((experiment) => (
+                    <div key={experiment.experiment_id}>{experiment.experiment.title}</div>
+                ))}
             </div>
             <div>
             {showMenu && (
