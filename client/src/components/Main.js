@@ -7,10 +7,30 @@ import StepThree from '../pages/StepThree.js';
 import StepFour from '../pages/StepFour.js';
 import ChatBox from './ChatBox.js';
 import Intro from './Intro.js';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_USER_BY_ID } from '../utils/queries';
+import { CREATE_EXPERIMENT } from '../utils/mutations.js';
+import Auth from '../utils/auth';
 
 const Main = () => {
     const [currentPage, setCurrentPage] = useState('getStarted'); // Initial state set to 'getStarted'
     const scrollableRef = useRef(null);
+    const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
+        variables: { userId: Auth.getProfile().data._id },
+        fetchPolicy: "network-only"
+    });
+    const [createExperiment] = useMutation(CREATE_EXPERIMENT)
+
+    useEffect(() => {
+        if (userData && userData.user) {
+            if (userData.user.experiments && userData.user.experiments.length > 0) {
+                setCurrentPage('stepOne');
+            } else {
+                setCurrentPage('getStarted');
+            }
+        }
+    }, [userData]);
+
 
     const scrollToBottom = () => {
         // Scroll the div to the bottom
@@ -21,7 +41,20 @@ const Main = () => {
         }
     };
     const handleGetStartedClick = () => {
-        setCurrentPage('stepOne'); // Function to update state to 'stepOne'
+        try {
+            setCurrentPage('stepOne'); // Function to update state to 'stepOne'
+            const input = {
+              title: "New Experiment"
+            };
+            console.log(input)
+             createExperiment({variables: { input }});
+            
+           
+          } catch (err) {
+            console.error(err);
+          }
+        
+
     };
 
     const handleStepOneClick = () => {
