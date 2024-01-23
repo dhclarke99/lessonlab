@@ -14,7 +14,17 @@
 }
 
 .sidebar-icon.top {
-   margin-top: 20px;
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.new-experiment {
+    display: flex;
+    align-items: center;
 }
 
 .sidebar-icon.bottom {
@@ -69,6 +79,37 @@
     cursor: pointer;
     
 }
+
+.existing-experiments {
+margin-top: 20px;
+width: 100%;
+}
+
+.existing-experiments h3{
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.263);
+    margin-bottom: 15px;
+}
+
+.experiment-title {
+    position: relative;
+    width: 99%; /* Adjust to your desired width */
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 15px;
+    color: white; /* Set the text color */
+  }
+  
+  .experiment-title:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60%; /* Adjust the width of the fading effect */
+    background: linear-gradient(to right, transparent, rgb(36, 36, 36));
+    mask-image: linear-gradient(to right, transparent, rgb(36, 36, 36));
+  }
 
 .menu-item:last-child {
     border-bottom: none;

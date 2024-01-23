@@ -29,15 +29,20 @@ console.log(userData)
     return (
         <div className="sidebar-component">
             <div className="sidebar-icon top">
+                <div className='new-experiment'>
                 <img src={measuringCup} alt="Icon" className="icon-image" />
                 New Experiment
-            </div>
-            <div className='existing-experiments'>
-                <h3>My Experiments</h3>
+                </div>
+                
+
+                <div className='existing-experiments'>
+                <h3>Previous Tests</h3>
                 {userData.user.experiments.map((experiment) => (
-                    <div key={experiment.experiment_id}>{experiment.experiment.title}</div>
+                    <div className='experiment-title' key={experiment.experiment_id}>{experiment.experiment.title}</div>
                 ))}
             </div>
+            </div>
+            
             <div>
             {showMenu && (
                     <div className="profile-menu">
