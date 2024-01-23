@@ -4,6 +4,7 @@ const path = require('path');
 require('dotenv').config({ path: '../.env' });
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const { authMiddleware } = require('./utils/auth');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -21,7 +22,14 @@ app.use('/images', express.static(path.join(__dirname, '../client/images')));
 const server = new ApolloServer({
   typeDefs,
   resolvers,
- 
+  context: ({ req }) => {
+    // Use authMiddleware to process the incoming request
+    const auth = authMiddleware({ req });
+    console.log("auth user: ", auth.user)
+    return {
+      user: auth.user
+    };
+  },
 });
 
 // Start Apollo Server

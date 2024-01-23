@@ -5,28 +5,29 @@ const expiration = '2h';
 
 module.exports = {
   authMiddleware: function ({ req }) {
-
+console.log("Auth middlware listening")
     let token = req.body.token || req.query.token || req.headers.authorization;
     
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
 
       token = token.split(' ').pop().trim();
+      console.log("here is token: ", token)
     }
 
     if (!token) {
-    
+    console.log("no token!")
       return req;
     }
 
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      
+      console.log("middleware DAta: ", data)
       req.user = data;
     } catch {
       console.log('Invalid token');
     }
-
+    console.log("AuthMId Req: ", req)
     return req;
   },
   adminMiddleware: function (req, res, next) {
@@ -40,7 +41,7 @@ module.exports = {
   },
   signToken: function ({ email, _id}) {
     const payload = { email, _id};
-    console.log(payload)
+    console.log("Payload: ", payload)
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
