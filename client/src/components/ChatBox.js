@@ -47,8 +47,9 @@ const ChatBox = ({ currentPage, onStepOneClick }) => {
                 });
 
                 const chatGptData = await chatGptResponse.json();
-                const experimentTitle = chatGptData.message.content; // Adjust this based on the actual response format
-
+                console.log(chatGptData)
+                const experimentTitle = chatGptData.message.content.replace(/title:\s*/i, '').trim();
+              
                 // Assume experimentId is available
                 const experimentId = "65af6bda1b04490f9dd644dc"; // Replace with actual source
 
