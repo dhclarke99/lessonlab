@@ -21,7 +21,7 @@ const Main = () => {
         fetchPolicy: "network-only"
     });
     const [createExperiment] = useMutation(CREATE_EXPERIMENT)
- 
+    const [isLoading, setIsLoading] = useState(false);
    
     const [apiResponse, setApiResponse] = useState([]); // Add this state
 
@@ -67,7 +67,7 @@ const Main = () => {
     const handleExampleClick = async () => {
         if (currentPage === 'stepOne') {
             setCurrentPage('stepOneExamples');
-    
+            setIsLoading(true); // Start loading before the API call
             
     
             try {
@@ -86,8 +86,10 @@ const Main = () => {
                 const data = await response.json();
                 console.log(data)
                 setApiResponse(data.message.content.split('\n')); 
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error making OpenAI request:", error);
+                setIsLoading(false);
             }
         }
     }
@@ -127,14 +129,14 @@ const Main = () => {
             {currentPage === 'getStarted' && <GetStarted onGetStartedClick={handleGetStartedClick} />}
             <div className='scrollable' ref={scrollableRef}>
                 {currentPage === 'stepOne' && <StepOne onExampleClick={handleExampleClick} />}
-                {currentPage === 'stepOneExamples' && <StepOneExamples exampleList={apiResponse} />}
+                {currentPage === 'stepOneExamples' && <StepOneExamples isLoading={isLoading} exampleList={apiResponse} />}
                 {currentPage === 'stepTwo' && <StepTwo />}
                 {currentPage === 'stepThree' && <StepThree />}
                 {currentPage === 'stepFour' && <StepFour />}
             </div>
 
 
-            {currentPage !== 'getStarted' && <ChatBox onStepOneClick={handleStepOneClick} />}
+            {currentPage !== 'getStarted' && <ChatBox currentPage={currentPage} onStepOneClick={handleStepOneClick} />}
             <footer className="main-footer">
                 <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, <a href='hey'>contact us.</a></p>
             </footer>

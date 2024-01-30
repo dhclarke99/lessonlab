@@ -6,7 +6,7 @@ import { GET_USER_BY_ID } from '../utils/queries';
 import Auth from '../utils/auth';
 import '../utils/css/StepOneExamples.css';
 
-const StepOneExamples = ({ exampleList }) => {
+const StepOneExamples = ({isLoading, exampleList }) => {
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
         variables: { userId: Auth.getProfile().data._id },
         fetchPolicy: "network-only"
@@ -28,11 +28,15 @@ const StepOneExamples = ({ exampleList }) => {
                     <p>Which academic standard do students struggle to meet?</p>
                     <div className='examples'>
                     <p>Some examples of skills and standards for a {userGrade} {userSubject} class may be: </p>
-                <ul>
-                    {exampleList.map((example, index) => (
-                        <li key={index}>{example}</li>
-                    ))}
-                </ul>
+                    {isLoading ? (
+                        <div>Loading examples...</div> // Loading message
+                    ) : (
+                        <ul>
+                            {exampleList.map((example, index) => (
+                                <li key={index}>{example}</li>
+                            ))}
+                        </ul>
+                    )}
                     </div>
                 </div>
             </div>

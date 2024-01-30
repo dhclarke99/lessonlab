@@ -1,9 +1,13 @@
 import React from 'react';
 import Intro from '../components/Intro'
 import measuringCup from '../assets/images/measuringcup.jpeg';
+import { useQuery, useMutation } from '@apollo/client';
+import { UPDATE_EXPERIMENT } from '../utils/mutations';
+import Auth from '../utils/auth';
 import '../utils/css/StepOne.css';
 
 const StepOne = ({ onExampleClick }) => {
+    
     return (
         <div className="step-one-container">
           

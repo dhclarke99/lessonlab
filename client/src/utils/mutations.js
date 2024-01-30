@@ -68,4 +68,12 @@ mutation deleteExperiment($experimentId: ID!, $userId: ID!) {
   }
 }
 `
-
+export const UPDATE_EXPERIMENT = gql`
+mutation updateExperimentById($experimentId: ID!, $input: UpdateExperimentInput) {
+  updateExperiment(experimentId: $experimentId, input: $input) {
+    title
+    _id
+    getStartedPrompts
+  }
+}
+`

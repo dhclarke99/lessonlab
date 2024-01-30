@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { UPDATE_USER } from '../utils/mutations';
+import { UPDATE_USER, UPDATE_EXPERIMENT } from '../utils/mutations';
 import '../utils/css/ChatBox.css';
 
-const ChatBox = ({ onStepOneClick }) => {
+const ChatBox = ({currentPage, onStepOneClick }) => {
     const [inputValue, setInputValue] = useState('');
     const [step, setStep] = useState(1);
     const id = localStorage.getItem('userId')
@@ -18,6 +18,7 @@ const ChatBox = ({ onStepOneClick }) => {
     };
 
     const [updateUser] = useMutation(UPDATE_USER);
+    const [updateExperiment] = useMutation(UPDATE_EXPERIMENT); 
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -30,10 +31,25 @@ const ChatBox = ({ onStepOneClick }) => {
                 getStartedPrompts: updatedPrompts
             });
             
-            const { data } = await updateUser({
-                variables: { userId: id, input: { ...formData, getStartedPrompts: updatedPrompts } },
-            });
-            console.log(data);
+            if (currentPage === 'stepOne' || currentPage === 'stepOneExamples') {
+                // Prepare the input object for UPDATE_EXPERIMENT mutation
+                const experimentInput = { title: inputValue }; // Adjust this based on your schema requirements
+    
+                // Assume experimentId is available in the local storage or state
+                const experimentId = "65af6bda1b04490f9dd644dc" // Replace this with actual source of experimentId
+    
+                // Call UPDATE_EXPERIMENT mutation
+                const { data } = await updateExperiment({
+                    variables: { experimentId, input: experimentInput },
+                });
+                console.log(data);
+            } else {
+                // Call UPDATE_USER mutation
+                const { data } = await updateUser({
+                    variables: { userId: id, input: { ...formData, getStartedPrompts: updatedPrompts } },
+                });
+                console.log(data);
+            }
 
             // Clear the input field
             setInputValue("");
