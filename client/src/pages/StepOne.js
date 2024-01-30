@@ -3,7 +3,7 @@ import Intro from '../components/Intro'
 import measuringCup from '../assets/images/measuringcup.jpeg';
 import '../utils/css/StepOne.css';
 
-const StepOne = () => {
+const StepOne = ({ onExampleClick }) => {
     return (
         <div className="step-one-container">
           
@@ -18,7 +18,7 @@ const StepOne = () => {
                 <h1>Step 1: Describe an objective that matters to you.</h1>
                 <p>What is a skill that your students find difficult to attain?</p>
                 <p>Which academic standard do students struggle to meet?</p>
-                <button>See examples</button>
+                <button onClick={onExampleClick}>See examples</button>
                 </div>
             </div>
 

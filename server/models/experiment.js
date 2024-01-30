@@ -4,9 +4,14 @@ const experimentSchema = new Schema({
   title: String,
   getStartedPrompts: [
     {
-        type: String
+      type: String
     }
-]
+  ],
+  conversation: [
+    {
+      type: String
+    }
+  ]
 });
 
 const Experiment = model('Experiment', experimentSchema);

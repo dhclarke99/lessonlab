@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import '../utils/css/Main.css';
 import GetStarted from '../pages/GetStarted.js';
 import StepOne from '../pages/StepOne.js';
+import StepOneExamples from '../pages/StepOneExamples.js'
 import StepTwo from '../pages/StepTwo.js';
 import StepThree from '../pages/StepThree.js';
 import StepFour from '../pages/StepFour.js';
@@ -20,6 +21,9 @@ const Main = () => {
         fetchPolicy: "network-only"
     });
     const [createExperiment] = useMutation(CREATE_EXPERIMENT)
+ 
+   
+    const [apiResponse, setApiResponse] = useState([]); // Add this state
 
     useEffect(() => {
         if (userData && userData.user) {
@@ -31,12 +35,15 @@ const Main = () => {
         }
     }, [userData]);
 
+    const userGrade = userData?.user?.gradeLevel || 'Default Grade'; 
+    const userSubject = userData?.user?.subject || 'Default Subject';
+
 
     const scrollToBottom = () => {
         // Scroll the div to the bottom
         console.log('scrolling')
         const scrollable = scrollableRef.current;
-        if(scrollable) {
+        if (scrollable) {
             scrollable.scrollTop = scrollable.scrollHeight;
         }
     };
@@ -44,35 +51,69 @@ const Main = () => {
         try {
             setCurrentPage('stepOne'); // Function to update state to 'stepOne'
             const input = {
-              title: "New Experiment"
+                title: "New Experiment"
             };
             console.log(input)
-             createExperiment({variables: { input }});
-            
-           
-          } catch (err) {
+            createExperiment({ variables: { input } });
+
+
+        } catch (err) {
             console.error(err);
-          }
-        
+        }
+
 
     };
+
+    const handleExampleClick = async () => {
+        if (currentPage === 'stepOne') {
+            setCurrentPage('stepOneExamples');
+    
+            
+    
+            try {
+                const response = await fetch('/api/openai', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [
+                            { role: "system", content: `I teach ${userGrade} ${userSubject}. What are some skills, standards, and objectives that my students might struggle with? Format your answer as 10 unique bullet points, with each point being no longer than 10 words. Do not number the bullet points.` }
+                        ]
+                    })
+                });
+    
+                const data = await response.json();
+                console.log(data)
+                setApiResponse(data.message.content.split('\n')); 
+            } catch (error) {
+                console.error("Error making OpenAI request:", error);
+            }
+        }
+    }
+    
 
     const handleStepOneClick = () => {
         if (currentPage === 'stepOne') {
             setCurrentPage('stepTwo');
         }
-       else if (currentPage === 'stepTwo') {
+        else if (currentPage === 'stepOneExamples') {
+            setCurrentPage('stepTwo')
+        }
+        else if (currentPage === 'stepTwo') {
             setCurrentPage('stepThree')
-        } 
+        }
         else if (currentPage === 'stepThree') {
             setCurrentPage('stepFour')
         }
         scrollToBottom();
     };
-  
+
     useEffect(() => {
         scrollToBottom();
     }, [currentPage]);
+
+
 
     return (
         <div className="main">
@@ -80,19 +121,20 @@ const Main = () => {
                 <h1>ChatGPT</h1>
                 <h1 id='for-teachers'>for teachers</h1>
             </header>
-           
+
 
             {currentPage === 'getStarted' || currentPage === 'stepOne' && <Intro />}
             {currentPage === 'getStarted' && <GetStarted onGetStartedClick={handleGetStartedClick} />}
             <div className='scrollable' ref={scrollableRef}>
-            {currentPage === 'stepOne' && <StepOne />}
-            {currentPage === 'stepTwo' && <StepTwo />}
-            {currentPage === 'stepThree' && <StepThree />}
-            {currentPage === 'stepFour' && <StepFour />}
+                {currentPage === 'stepOne' && <StepOne onExampleClick={handleExampleClick} />}
+                {currentPage === 'stepOneExamples' && <StepOneExamples exampleList={apiResponse} />}
+                {currentPage === 'stepTwo' && <StepTwo />}
+                {currentPage === 'stepThree' && <StepThree />}
+                {currentPage === 'stepFour' && <StepFour />}
             </div>
-           
-    
-            {currentPage !== 'getStarted' && <ChatBox onStepOneClick={handleStepOneClick}/>}
+
+
+            {currentPage !== 'getStarted' && <ChatBox onStepOneClick={handleStepOneClick} />}
             <footer className="main-footer">
                 <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, <a href='hey'>contact us.</a></p>
             </footer>

@@ -7,7 +7,7 @@ async function main() {
     model: "gpt-3.5-turbo",
     messages: [
         
-        { role: "system", content: "what was said before that?" },
+        { role: "system", content: "I teach 9th Grade Science. What are some skills, standards, and objectives that my students might struggle with? Format your answer as a bullet point list, with each point being no longer than 10 words" },
     
     ],
     

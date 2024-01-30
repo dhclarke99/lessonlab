@@ -5,6 +5,7 @@ require('dotenv').config({ path: '../.env' });
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
+const OpenAI = require('openai');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,6 +13,21 @@ const app = express();
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+
+const openai = new OpenAI(process.env.OPENAI_API_KEY);
+
+app.post('/api/openai', async (req, res) => {
+    try {
+        const completion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: req.body.messages,
+        });
+        res.json(completion.choices[0]);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 // Serve image assets
 app.use('/images', express.static(path.join(__dirname, '../client/images')));
@@ -25,7 +41,7 @@ const server = new ApolloServer({
   context: ({ req }) => {
     // Use authMiddleware to process the incoming request
     const auth = authMiddleware({ req });
-    console.log("auth user: ", auth.user)
+   
     return {
       user: auth.user
     };
