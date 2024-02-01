@@ -12,7 +12,7 @@ console.log("Auth middlware listening")
     if (req.headers.authorization) {
 
       token = token.split(' ').pop().trim();
-      console.log("here is token: ", token)
+     
     }
 
     if (!token) {
@@ -22,12 +22,12 @@ console.log("Auth middlware listening")
 
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      console.log("middleware DAta: ", data)
+     
       req.user = data;
     } catch {
       console.log('Invalid token');
     }
-    console.log("AuthMId Req: ", req)
+   
     return req;
   },
   adminMiddleware: function (req, res, next) {

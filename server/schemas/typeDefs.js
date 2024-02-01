@@ -20,6 +20,8 @@ type Experiment {
   _id: ID
   title: String
   getStartedPrompts: [String]
+  createdAt: String
+    updatedAt: String    
 }
 
 

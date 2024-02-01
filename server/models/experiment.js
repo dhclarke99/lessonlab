@@ -12,7 +12,7 @@ const experimentSchema = new Schema({
       type: String
     }
   ]
-});
+}, { timestamps: true }); // Enable timestamps
 
 const Experiment = model('Experiment', experimentSchema);
 

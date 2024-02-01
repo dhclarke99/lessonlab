@@ -14,6 +14,8 @@ query getUserById($userId: String!) {
         title
         _id
         getStartedPrompts
+        createdAt
+        updatedAt
       }
     }
   }

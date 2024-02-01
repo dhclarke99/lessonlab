@@ -51,7 +51,7 @@ const ChatBox = ({ currentPage, onStepOneClick }) => {
                 const experimentTitle = chatGptData.message.content.replace(/title:\s*/i, '').trim();
               
                 // Assume experimentId is available
-                const experimentId = "65af6bda1b04490f9dd644dc"; // Replace with actual source
+                const experimentId = localStorage.getItem('experimentId')
 
                 // Call UPDATE_EXPERIMENT mutation
                 await updateExperiment({

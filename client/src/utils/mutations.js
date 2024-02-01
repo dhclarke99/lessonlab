@@ -54,6 +54,8 @@ mutation createExperiment($input: CreateExperimentInput!) {
     title
     _id
     getStartedPrompts
+    createdAt
+        updatedAt
     
   }
 }
@@ -74,6 +76,8 @@ mutation updateExperimentById($experimentId: ID!, $input: UpdateExperimentInput)
     title
     _id
     getStartedPrompts
+    createdAt
+        updatedAt
   }
 }
 `

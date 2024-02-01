@@ -26,14 +26,22 @@ const Main = () => {
     const [apiResponse, setApiResponse] = useState([]); // Add this state
 
     useEffect(() => {
-        if (userData && userData.user) {
-            if (userData.user.experiments && userData.user.experiments.length > 0) {
-                setCurrentPage('stepOne');
-            } else {
-                setCurrentPage('getStarted');
-            }
+        if (userData && userData.user && userData.user.experiments && userData.user.experiments.length > 0) {
+            // Sort experiments by updatedAt in descending order
+            const sortedExperiments = [...userData.user.experiments].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+            console.log(sortedExperiments)
+            // Get the most recently updated experiment
+            const mostRecentExperiment = sortedExperiments[0];
+    
+            // Store the most recent experiment's ID in local storage
+            localStorage.setItem('experimentId', mostRecentExperiment.experiment._id);
+    
+            setCurrentPage('stepOne');
+        } else {
+            setCurrentPage('getStarted');
         }
     }, [userData]);
+    
 
     const userGrade = userData?.user?.gradeLevel || 'Default Grade'; 
     const userSubject = userData?.user?.subject || 'Default Subject';
