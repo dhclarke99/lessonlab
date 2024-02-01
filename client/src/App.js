@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar.js';
 import Main from './components/Main.js';
 import SignUp from './pages/SignUp'; 
 import AuthService from './utils/auth.js'; 
+import { ExperimentProvider } from './ExperimentContext'; // Adjust the import path
 
 function App() {
     // Construct our main GraphQL API endpoint
@@ -39,23 +40,25 @@ const httpLink = createHttpLink({
     const isLoggedIn = AuthService.loggedIn();
 
     return (
-        <ApolloProvider client={client}>
-        <div className="App">
-            {!isLoggedIn ? (
-                <SignUp />
-            ) : (
-                <>
-                    <div className="sidebar">
-                        <Sidebar />
-                    </div>
-                    <div className="main">
-                        <Main />
-                    </div>
-                </>
-            )}
-        </div>
-        </ApolloProvider>
-    );
+      <ApolloProvider client={client}>
+          <ExperimentProvider>
+              <div className="App">
+                  {!isLoggedIn ? (
+                      <SignUp />
+                  ) : (
+                      <>
+                          <div className="sidebar">
+                              <Sidebar />
+                          </div>
+                          <div className="main">
+                              <Main />
+                          </div>
+                      </>
+                  )}
+              </div>
+          </ExperimentProvider>
+      </ApolloProvider>
+  );
 }
 
 export default App;

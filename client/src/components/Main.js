@@ -12,8 +12,10 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
 import { CREATE_EXPERIMENT } from '../utils/mutations.js';
 import Auth from '../utils/auth';
+import { useExperiment } from '../ExperimentContext'; 
 
 const Main = () => {
+    const { activeExperimentId, setActiveExperimentId } = useExperiment();
     const [currentPage, setCurrentPage] = useState('getStarted'); // Initial state set to 'getStarted'
     const scrollableRef = useRef(null);
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
@@ -22,25 +24,27 @@ const Main = () => {
     });
     const [createExperiment] = useMutation(CREATE_EXPERIMENT)
     const [isLoading, setIsLoading] = useState(false);
-   
     const [apiResponse, setApiResponse] = useState([]); // Add this state
 
+    const handleSetActiveExperimentId = (id) => {
+        setActiveExperimentId(id);
+    };
+
     useEffect(() => {
-        if (userData && userData.user && userData.user.experiments && userData.user.experiments.length > 0) {
-            // Sort experiments by updatedAt in descending order
-            const sortedExperiments = [...userData.user.experiments].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-            console.log(sortedExperiments)
-            // Get the most recently updated experiment
-            const mostRecentExperiment = sortedExperiments[0];
-    
-            // Store the most recent experiment's ID in local storage
-            localStorage.setItem('experimentId', mostRecentExperiment.experiment._id);
-    
-            setCurrentPage('stepOne');
-        } else {
-            setCurrentPage('getStarted');
+        // Update the current page based on the active experiment's conversation array
+        if (userData && userData.user) {
+            const currentExperiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
+
+            if (currentExperiment) {
+                if (currentExperiment.conversation && currentExperiment.conversation.length > 0) {
+                    setCurrentPage('stepFour');
+                } else {
+                    setCurrentPage('stepOne');
+                }
+            }
         }
-    }, [userData]);
+    }, [userData, activeExperimentId]);
+
     
 
     const userGrade = userData?.user?.gradeLevel || 'Default Grade'; 
@@ -62,7 +66,13 @@ const Main = () => {
                 title: "New Experiment"
             };
             console.log(input)
-            createExperiment({ variables: { input } });
+            createExperiment({
+                variables: { input: { title: "New Experiment" } },
+                onCompleted: (data) => {
+                    setActiveExperimentId(data.createExperiment._id);
+                    setCurrentPage('stepOne');
+                }
+            });
 
 
         } catch (err) {
@@ -127,6 +137,7 @@ const Main = () => {
 
     return (
         <div className="main">
+           
             <header className="main-header">
                 <h1>ChatGPT</h1>
                 <h1 id='for-teachers'>for teachers</h1>
@@ -136,15 +147,15 @@ const Main = () => {
             {currentPage === 'getStarted' || currentPage === 'stepOne' && <Intro />}
             {currentPage === 'getStarted' && <GetStarted onGetStartedClick={handleGetStartedClick} />}
             <div className='scrollable' ref={scrollableRef}>
-                {currentPage === 'stepOne' && <StepOne onExampleClick={handleExampleClick} />}
-                {currentPage === 'stepOneExamples' && <StepOneExamples isLoading={isLoading} exampleList={apiResponse} />}
-                {currentPage === 'stepTwo' && <StepTwo />}
-                {currentPage === 'stepThree' && <StepThree />}
-                {currentPage === 'stepFour' && <StepFour />}
+                {currentPage === 'stepOne' && <StepOne onExampleClick={handleExampleClick} activeExperimentId={activeExperimentId} />}
+                {currentPage === 'stepOneExamples' && <StepOneExamples isLoading={isLoading} exampleList={apiResponse} activeExperimentId={activeExperimentId}/>}
+                {currentPage === 'stepTwo' && <StepTwo activeExperimentId={activeExperimentId} />}
+                {currentPage === 'stepThree' && <StepThree activeExperimentId={activeExperimentId} />}
+                {currentPage === 'stepFour' && <StepFour activeExperimentId={activeExperimentId} />}
             </div>
 
 
-            {currentPage !== 'getStarted' && <ChatBox currentPage={currentPage} onStepOneClick={handleStepOneClick} />}
+            {currentPage !== 'getStarted' && <ChatBox currentPage={currentPage} onStepOneClick={handleStepOneClick} activeExperimentId={activeExperimentId}/>}
             <footer className="main-footer">
                 <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, <a href='hey'>contact us.</a></p>
             </footer>

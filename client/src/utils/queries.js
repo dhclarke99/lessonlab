@@ -22,3 +22,16 @@ query getUserById($userId: String!) {
   }
 }
 `
+
+export const GET_EXPERIMENT_BY_ID = gql`
+query getExperimentById($experimentId: String!) {
+  experiment(id: $experimentId) {
+    title
+    _id
+    getStartedPrompts
+    conversation
+    createdAt
+    updatedAt
+  }
+}
+`

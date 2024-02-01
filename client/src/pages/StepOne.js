@@ -6,7 +6,7 @@ import { UPDATE_EXPERIMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
 import '../utils/css/StepOne.css';
 
-const StepOne = ({ onExampleClick }) => {
+const StepOne = ({ onExampleClick, activeExperimentId }) => {
     
     return (
         <div className="step-one-container">

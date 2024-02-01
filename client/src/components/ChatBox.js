@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_USER, UPDATE_EXPERIMENT } from '../utils/mutations';
 import '../utils/css/ChatBox.css';
 
-const ChatBox = ({ currentPage, onStepOneClick }) => {
+const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
     const [inputValue, setInputValue] = useState('');
     const [step, setStep] = useState(1);
     const id = localStorage.getItem('userId')
@@ -52,16 +52,26 @@ const ChatBox = ({ currentPage, onStepOneClick }) => {
               
                 // Assume experimentId is available
                 const experimentId = localStorage.getItem('experimentId')
-
+                const prompt = "Describe an objective that matters to you"
                 // Call UPDATE_EXPERIMENT mutation
                 await updateExperiment({
-                    variables: { experimentId, input: { title: experimentTitle } },
+                    variables: { experimentId, input: { title: experimentTitle, conversation: [`${prompt}`, `${inputValue}`] } },
                 });
             } else {
-                // Call UPDATE_USER mutation
-                await updateUser({
-                    variables: { userId: id, input: { ...formData, getStartedPrompts: updatedPrompts } },
-                });
+                if (currentPage === 'stepTwo') {
+                    const experimentId = localStorage.getItem('experimentId')
+                    const prompt = "Describe the instructional goals of an activity related to this objective."
+                    await updateExperiment({
+                        variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
+                    });
+                } else if (currentPage === 'stepThree') {
+                    const experimentId = localStorage.getItem('experimentId')
+                    const prompt = "Describe the students needs."
+                    await updateExperiment({
+                        variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
+                    });
+                }
+                
             }
 
             // Clear the input field and increment the step

@@ -6,15 +6,22 @@ import measuringCup from '../assets/images/measuringcup.jpeg';
 import '../utils/css/StepTwo.css';
 import Auth from '../utils/auth';
 
-const StepTwo = () => {
+const StepTwo = (activeExperimentId) => {
+    const userId = Auth.getProfile().data._id;
+    const experimentId = activeExperimentId // Retrieve the experiment ID
+
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
-        variables: { userId: Auth.getProfile().data._id },
+        variables: { userId },
     });
 
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
+    const experiment = userData.user.experiments.find(exp => exp.experiment._id === experimentId)?.experiment;
+
+    if (!experiment) return <p>Experiment not found</p>;
+
     const firstInitial = userData.user.firstname[0];
-    console.log(userData)
+console.log(userData)
     return (
         <div className="step-two-container">
             <StepOne />
@@ -24,7 +31,7 @@ const StepTwo = () => {
             </div>
             <div>
             <header>{userData.user.firstname}</header>
-            <h1>{userData.user.getStartedPrompts[0]}</h1>
+            <h1>{experiment.conversation[1]}</h1>
             </div>
             
             </div>

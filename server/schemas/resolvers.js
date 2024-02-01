@@ -154,44 +154,40 @@ console.log("seconcContext: ", context)
 
     updateExperiment: async (_, { experimentId, input }) => {
       try {
-        // Check if the 'conversation' field is in the input
+        const updateOperations = {};
+    
+        // Handle updating the conversation array
         if (input.conversation && Array.isArray(input.conversation) && input.conversation.length > 0) {
-          // Append the new conversation input without replacing the entire array
-          // Using MongoDB's $push operator
-          const updatedExperiment = await Experiment.findByIdAndUpdate(
-            experimentId,
-            { $push: { conversation: { $each: input.conversation } } },
-            { new: true, runValidators: true }
-          );
-    
-          if (!updatedExperiment) {
-            throw new Error('Experiment not found');
-          }
-    
-          return updatedExperiment;
-        } else {
-          // Handle other updates as before
-          const updateFields = Object.fromEntries(
-            Object.entries(input).filter(([_, value]) => value != null)
-          );
-    
-          const updatedExperiment = await Experiment.findByIdAndUpdate(
-            experimentId,
-            { $set: updateFields },
-            { new: true, runValidators: true }
-          );
-    
-          if (!updatedExperiment) {
-            throw new Error('Experiment not found');
-          }
-    
-          return updatedExperiment;
+          updateOperations.$push = { conversation: { $each: input.conversation } };
         }
+    
+        // Handle updating other fields like title
+        const otherUpdates = Object.fromEntries(
+          Object.entries(input).filter(([key, value]) => value != null && key !== 'conversation')
+        );
+    
+        if (Object.keys(otherUpdates).length > 0) {
+          updateOperations.$set = otherUpdates;
+        }
+    
+        // Perform the update with the constructed operations
+        const updatedExperiment = await Experiment.findByIdAndUpdate(
+          experimentId,
+          updateOperations,
+          { new: true, runValidators: true }
+        );
+    
+        if (!updatedExperiment) {
+          throw new Error('Experiment not found');
+        }
+    
+        return updatedExperiment;
       } catch (error) {
         console.error("Error in updating Experiment:", error);
         throw new Error("Failed to update Experiment");
       }
     },
+    
     
     deleteUser: async (_, { userId }) => {
       try {
