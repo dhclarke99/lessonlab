@@ -30,6 +30,7 @@ const Sidebar = () => {
         try {
             const { data } = await createExperiment({ variables: { input: { title: "New Experiment" } } });
             setActiveExperimentId(data.createExperiment._id);
+            
             // Additional actions if needed
         } catch (err) {
             console.error("Error creating new experiment:", err);

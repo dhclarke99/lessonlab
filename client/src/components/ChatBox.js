@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_USER_BY_ID } from '../utils/queries';
 import { UPDATE_USER, UPDATE_EXPERIMENT } from '../utils/mutations';
+import Auth from '../utils/auth';
 import '../utils/css/ChatBox.css';
 
 const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
+    
     const [inputValue, setInputValue] = useState('');
     const [step, setStep] = useState(1);
     const id = localStorage.getItem('userId')
@@ -13,6 +16,17 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
     });
     const [updateUser] = useMutation(UPDATE_USER);
     const [updateExperiment] = useMutation(UPDATE_EXPERIMENT);
+    const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
+        variables: { userId: Auth.getProfile().data._id },
+        fetchPolicy: "network-only"
+    });
+
+   
+    // Move the experiment-related logic inside the condition
+    let experiment;
+    if (!userLoading && !userError) {
+        experiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
+    }
 
     const handleChange = (e) => {
         setInputValue(e.target.value); // Update the inputValue state
@@ -70,6 +84,12 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                     await updateExperiment({
                         variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
                     });
+                } else if (currentPage === 'stepFour') {
+                    const experimentId = activeExperimentId
+                    const prompt = `To help students with ${experiment.title}, ChatGPT can help in several ways. Select one of the following for this experiment, but later there will be an opportunity to test all options.`
+                    await updateExperiment({
+                        variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
+                    });
                 }
                 
             }
@@ -84,6 +104,10 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
             console.error(e);
         }
     };
+
+    if (userLoading) return <p>Loading...</p>;
+    if (userError) return <p>Error: {userError.message}</p>;
+   
 
     return (
         <div className="chat-container">

@@ -27,20 +27,34 @@ const Main = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiResponse, setApiResponse] = useState([]); // Add this state
 
-    const handleSetActiveExperimentId = (id) => {
-        setActiveExperimentId(id);
-    };
+    useEffect(() => {
+        if (userData && userData.user && userData.user.experiments && userData.user.experiments.length > 0) {
+            // Sort experiments by updatedAt (Unix timestamp) in descending order
+            const sortedExperiments = [...userData.user.experiments].sort((a, b) => {
+                // Convert updatedAt to a number for comparison
+                const dateA = Number(a.experiment.updatedAt);
+                const dateB = Number(b.experiment.updatedAt);
+                return dateB - dateA; // Sort in descending order
+            });
+            const mostRecentExperiment = sortedExperiments[0].experiment;
+            setActiveExperimentId(mostRecentExperiment._id);
+        }
+    }, [userData, setActiveExperimentId]);
 
     useEffect(() => {
-        // Update the current page based on the active experiment's conversation array
         if (userData && userData.user) {
-            const currentExperiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
-
-            if (currentExperiment) {
-                if (currentExperiment.conversation && currentExperiment.conversation.length > 0) {
-                    setCurrentPage('dynamicChat');
-                } else {
-                    setCurrentPage('stepOne');
+            if (userData.user.experiments.length === 0) {
+                // User has no experiments
+                setCurrentPage('getStarted');
+            } else {
+                // User has one or more experiments
+                const currentExperiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
+                if (currentExperiment) {
+                    if (currentExperiment.conversation && currentExperiment.conversation.length > 0) {
+                        setCurrentPage('dynamicChat');
+                    } else {
+                        setCurrentPage('stepOne');
+                    }
                 }
             }
         }
