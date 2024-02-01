@@ -2,11 +2,12 @@ import React from 'react';
 import Intro from '../components/Intro'
 import measuringCup from '../assets/images/measuringcup.jpeg';
 import { useQuery, useMutation } from '@apollo/client';
+import { GET_USER_BY_ID } from '../utils/queries';
 import { UPDATE_EXPERIMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
 import '../utils/css/StepOne.css';
 
-const StepOne = ({ onExampleClick, activeExperimentId }) => {
+const StepOne = ({ onExampleClick }) => {
     
     return (
         <div className="step-one-container">

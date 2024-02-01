@@ -19,7 +19,7 @@ const StepFour = (props) => {
 
     // Find the experiment using the extracted activeExperimentId
     const experiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
-
+    console.log("step 4 Active ID", activeExperimentId)
     if (!experiment) return <p>Experiment not found</p>;
 
     const firstInitial = userData.user.firstname[0];
@@ -27,7 +27,7 @@ const StepFour = (props) => {
 
     return (
         <div className="step-four-container">
-            <StepThree />
+            <StepThree activeExperimentId={activeExperimentId}/>
             <div className='user-response'>
             <div className='user-response-header'>
             <span className="icon-initials">{firstInitial}</span>

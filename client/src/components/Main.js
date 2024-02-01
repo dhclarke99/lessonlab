@@ -151,7 +151,7 @@ const Main = () => {
         scrollToBottom();
     }, [currentPage]);
 
-
+console.log("Main active id", activeExperimentId)
 
     return (
         <div className="main">

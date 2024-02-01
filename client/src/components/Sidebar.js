@@ -44,9 +44,15 @@ const Sidebar = () => {
 
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
+   
+    // Sort experiments by updatedAt
+    const sortedExperiments = userData.user.experiments.slice().sort((a, b) => {
+        const dateA = Number(a.experiment.updatedAt);
+        const dateB = Number(b.experiment.updatedAt);
+        return dateB - dateA; // Sort in descending order
+    });
+
     const firstInitial = userData.user.firstname[0];
-console.log(userData)
-console.log(activeExperimentId)
     return (
         <div className="sidebar-component">
             <div className="sidebar-icon top">
@@ -55,19 +61,18 @@ console.log(activeExperimentId)
                 New Experiment
                 </div>
                 
-
                 <div className='existing-experiments'>
-                <h3>Previous Tests</h3>
-                {userData.user.experiments.map((experiment) => (
-                    <div
-                        className='experiment-title'
-                        key={experiment.experiment._id} // Adjust according to your data structure
-                        onClick={() => selectExperiment(experiment.experiment._id)} // Set the experiment ID on click
-                    >
-                        {experiment.experiment.title}
-                    </div>
-                ))}
-            </div>
+                    <h3>Previous Tests</h3>
+                    {sortedExperiments.map((experiment) => (
+                        <div
+                            className='experiment-title'
+                            key={experiment.experiment._id}
+                            onClick={() => selectExperiment(experiment.experiment._id)}
+                        >
+                            {experiment.experiment.title}
+                        </div>
+                    ))}
+                </div>
             </div>
             
             <div>

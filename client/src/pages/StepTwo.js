@@ -17,7 +17,7 @@ const StepTwo = (props) => {
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
     const experiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
-
+console.log("step 2 acrtive id", activeExperimentId)
     if (!experiment) return <p>Experiment not found</p>;
 
     const firstInitial = userData.user.firstname[0];
