@@ -154,31 +154,45 @@ console.log("seconcContext: ", context)
 
     updateExperiment: async (_, { experimentId, input }) => {
       try {
-        // Filter out any fields that are null or undefined
-        const updateFields = Object.fromEntries(
-          Object.entries(input).filter(([_, value]) => value != null)
-        );
-        // Find the user by ID and update it
-        const updatedExperiment = await Experiment.findByIdAndUpdate(
-          experimentId,
-          { $set: updateFields },
-          {
-            new: true,
-            runValidators: true,
-            context: 'query'  // This ensures that the pre-save middleware runs
+        // Check if the 'conversation' field is in the input
+        if (input.conversation && Array.isArray(input.conversation) && input.conversation.length > 0) {
+          // Append the new conversation input without replacing the entire array
+          // Using MongoDB's $push operator
+          const updatedExperiment = await Experiment.findByIdAndUpdate(
+            experimentId,
+            { $push: { conversation: { $each: input.conversation } } },
+            { new: true, runValidators: true }
+          );
+    
+          if (!updatedExperiment) {
+            throw new Error('Experiment not found');
           }
-        );
-
-        if (!updatedExperiment) {
-          throw new Error('Experiment not found');
+    
+          return updatedExperiment;
+        } else {
+          // Handle other updates as before
+          const updateFields = Object.fromEntries(
+            Object.entries(input).filter(([_, value]) => value != null)
+          );
+    
+          const updatedExperiment = await Experiment.findByIdAndUpdate(
+            experimentId,
+            { $set: updateFields },
+            { new: true, runValidators: true }
+          );
+    
+          if (!updatedExperiment) {
+            throw new Error('Experiment not found');
+          }
+    
+          return updatedExperiment;
         }
-
-        return updatedExperiment;
       } catch (error) {
         console.error("Error in updating Experiment:", error);
         throw new Error("Failed to update Experiment");
       }
     },
+    
     deleteUser: async (_, { userId }) => {
       try {
         return await User.findByIdAndDelete(userId);

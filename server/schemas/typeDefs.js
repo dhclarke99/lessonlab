@@ -20,6 +20,7 @@ type Experiment {
   _id: ID
   title: String
   getStartedPrompts: [String]
+  conversation: [String]
   createdAt: String
     updatedAt: String    
 }
@@ -52,6 +53,7 @@ input UpdateUserInput {
 input UpdateExperimentInput {
   title: String
   getStartedPrompts: [String]
+  conversation: [String]
 }
 
 type Auth {

@@ -14,6 +14,7 @@ query getUserById($userId: String!) {
         title
         _id
         getStartedPrompts
+        conversation
         createdAt
         updatedAt
       }
