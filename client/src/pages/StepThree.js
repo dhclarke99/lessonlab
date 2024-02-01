@@ -6,9 +6,9 @@ import measuringCup from '../assets/images/measuringcup.jpeg';
 import '../utils/css/StepThree.css';
 import Auth from '../utils/auth';
 
-const StepThree = (activeExperimentId) => {
+const StepThree = (props) => {
     const userId = Auth.getProfile().data._id;
-    const experimentId = activeExperimentId // Retrieve the experiment ID
+    const { activeExperimentId } = props; 
 
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
         variables: { userId },
@@ -16,7 +16,7 @@ const StepThree = (activeExperimentId) => {
 
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
-    const experiment = userData.user.experiments.find(exp => exp.experiment._id === experimentId)?.experiment;
+    const experiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
 
     if (!experiment) return <p>Experiment not found</p>;
 
