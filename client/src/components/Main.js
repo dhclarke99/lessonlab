@@ -6,6 +6,7 @@ import StepOneExamples from '../pages/StepOneExamples.js'
 import StepTwo from '../pages/StepTwo.js';
 import StepThree from '../pages/StepThree.js';
 import StepFour from '../pages/StepFour.js';
+import DynamicChat from '../pages/DynamicChat.js';
 import ChatBox from './ChatBox.js';
 import Intro from './Intro.js';
 import { useQuery, useMutation } from '@apollo/client';
@@ -37,7 +38,7 @@ const Main = () => {
 
             if (currentExperiment) {
                 if (currentExperiment.conversation && currentExperiment.conversation.length > 0) {
-                    setCurrentPage('stepFour');
+                    setCurrentPage('dynamicChat');
                 } else {
                     setCurrentPage('stepOne');
                 }
@@ -126,6 +127,9 @@ const Main = () => {
         else if (currentPage === 'stepThree') {
             setCurrentPage('stepFour')
         }
+        else if (currentPage === 'stepFour') {
+            setCurrentPage('dynamicChat')
+        }
         scrollToBottom();
     };
 
@@ -152,6 +156,7 @@ const Main = () => {
                 {currentPage === 'stepTwo' && <StepTwo activeExperimentId={activeExperimentId} />}
                 {currentPage === 'stepThree' && <StepThree activeExperimentId={activeExperimentId} />}
                 {currentPage === 'stepFour' && <StepFour activeExperimentId={activeExperimentId} />}
+                {currentPage === 'dynamicChat' && <DynamicChat activeExperimentId={activeExperimentId} />}
             </div>
 
 

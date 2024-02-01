@@ -51,7 +51,7 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                 const experimentTitle = chatGptData.message.content.replace(/title:\s*/i, '').trim();
               
                 // Assume experimentId is available
-                const experimentId = localStorage.getItem('experimentId')
+                const experimentId = activeExperimentId
                 const prompt = "Describe an objective that matters to you"
                 // Call UPDATE_EXPERIMENT mutation
                 await updateExperiment({
@@ -59,13 +59,13 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                 });
             } else {
                 if (currentPage === 'stepTwo') {
-                    const experimentId = localStorage.getItem('experimentId')
+                    const experimentId = activeExperimentId
                     const prompt = "Describe the instructional goals of an activity related to this objective."
                     await updateExperiment({
                         variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
                     });
                 } else if (currentPage === 'stepThree') {
-                    const experimentId = localStorage.getItem('experimentId')
+                    const experimentId = activeExperimentId
                     const prompt = "Describe the students needs."
                     await updateExperiment({
                         variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
