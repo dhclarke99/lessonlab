@@ -11,6 +11,7 @@
     text-align: left;
     margin-left: 10%;
     margin-bottom: 12px;
+    margin-right: 10%;
 }
 
 .user-response {
@@ -19,6 +20,7 @@
     text-align: left;
     margin-left: 10%;
     margin-bottom: 12px;
+    margin-right: 10%;
 }
 
 .user-response-header {
@@ -27,13 +29,24 @@
     text-align: left;
 
 }
+
+.user-response header {
+    font-size: 18px;
+    font-weight: 450;
+}
+
 .user-response h1 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 350;
 }
 
+.step-four-content header {
+    font-size: 18px;
+    font-weight: 450;
+}
+
 .step-four-content h1 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 350;
 }
 

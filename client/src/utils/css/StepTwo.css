@@ -11,6 +11,7 @@
     text-align: left;
     margin-left: 10%;
     margin-bottom: 12px;
+    margin-right: 10%;
 }
 
 .user-response {
@@ -19,13 +20,12 @@
     text-align: left;
     margin-left: 10%;
     margin-bottom: 12px;
+    margin-right: 10%;
 }
 
-.user-response-header {
-    display: flex;
-    flex-direction: row;
-    text-align: left;
-
+.user-response header {
+    font-size: 18px;
+    font-weight: 450;
 }
 .user-response h1 {
     font-size: 20px;
@@ -37,8 +37,12 @@
     margin-bottom: -15px;
 }
 
+.step-two-content header {
+    font-size: 18px;
+    font-weight: 450;
+}
 
 .step-two-content h1 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 350;
 }

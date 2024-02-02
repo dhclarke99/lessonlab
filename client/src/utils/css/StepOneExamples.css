@@ -19,8 +19,13 @@
     margin-top: 20px;
 }
 
+.step-one-content header {
+    font-size: 18px;
+    font-weight: 450;
+}
+
 .step-one-content h1 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 350;
 }
 
