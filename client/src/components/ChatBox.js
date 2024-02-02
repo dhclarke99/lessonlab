@@ -20,7 +20,9 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
         variables: { userId: Auth.getProfile().data._id },
         fetchPolicy: "network-only"
     });
-
+    
+    const userGrade = userData?.user?.gradeLevel || 'Default Grade'; 
+    const userSubject = userData?.user?.subject || 'Default Subject';
    
     // Move the experiment-related logic inside the condition
     let experiment;
@@ -90,7 +92,51 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                     await updateExperiment({
                         variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
                     });
+                } else if (currentPage === 'dynamicChat') {
+                    // Prepare the messages payload with the system message as the first entry
+                    const systemMessage = { role: "system", content: `You are a teaching assistant helping a ${userGrade} school teacher understand how ChatGPT can assist them in their job.` };
+
+                    const dynamicConversation = experiment.conversation.slice(7).map((content, index) => {
+                        // Log for debugging
+                        console.log(`Content: ${content}, Role: ${index % 2 === 0 ? "assistant" : "user"}`);
+                        return {
+                            role: index % 2 === 0 ? "assistant" : "user",
+                            content
+                        };
+                    });
+                    
+                    const latestUserInput = { role: "user", content: inputValue };
+                    
+                    const messagesPayload = [systemMessage, ...dynamicConversation, latestUserInput];
+                    
+                    // Log the entire payload for review
+                    console.log(messagesPayload);
+                    
+                
+                    const chatGptResponse = await fetch('/api/openai', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ messages: messagesPayload })
+                    });
+                    console.log("all messages sent:", messagesPayload)
+                    const chatGptData = await chatGptResponse.json();
+                    console.log("Chat response: ", chatGptData);
+                
+                    // Append the ChatGPT response back to the experiment's conversation
+                    // This assumes chatGptData contains the conversation in a format you can append directly
+                    const newConversationPart = chatGptData.message.content // Adjust based on actual response
+                    await updateExperiment({
+                        variables: {
+                            experimentId: activeExperimentId,
+                            input: { 
+                                conversation: [newConversationPart]
+                            },
+                        },
+                    });
                 }
+                
                 
             }
 

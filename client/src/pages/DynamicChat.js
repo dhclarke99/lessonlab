@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
-import StepFour from './StepFour';
+import StepFour from './StepFour'; // Re-import StepFour
 import '../utils/css/StepFour.css';
 import Auth from '../utils/auth';
 
@@ -19,21 +19,20 @@ const DynamicChat = ({ activeExperimentId }) => {
 
     if (!experiment) return <p>Experiment not found</p>;
 
-    // Get the last two items from the conversation array
-    const lastTwoConversations = experiment.conversation.slice(-2);
-console.log(lastTwoConversations)
+    // Get all items from the conversation array after the 8th position
+    const conversationAfterEighth = experiment.conversation.slice(7);
+
     return (
         <div className="dynamic-chat-container">
-            <StepFour activeExperimentId={activeExperimentId} />
+            <StepFour activeExperimentId={activeExperimentId} /> {/* Ensure StepFour is included */}
 
-            {lastTwoConversations.length >= 2 && (
+            {conversationAfterEighth.length > 0 && (
                 <div className='conversation-content'>
-                    <div className='conversation-item'>
-                        <p>{lastTwoConversations[0]}</p>
-                    </div>
-                    <div className='conversation-item'>
-                        <p>{lastTwoConversations[1]}</p>
-                    </div>
+                    {conversationAfterEighth.map((message, index) => (
+                        <div key={index} className='conversation-item'>
+                            <p>{message}</p>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
