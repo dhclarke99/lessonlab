@@ -50,15 +50,30 @@ const Main = () => {
                 // User has one or more experiments
                 const currentExperiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
                 if (currentExperiment) {
-                    if (currentExperiment.conversation && currentExperiment.conversation.length > 0) {
-                        setCurrentPage('dynamicChat');
-                    } else {
-                        setCurrentPage('stepOne');
+                    const { conversation } = currentExperiment;
+                    
+                    // Determine step based on the conversation length
+                    switch (conversation.length) {
+                        case 0:
+                            setCurrentPage('stepOne');
+                            break;
+                        case 2: // Assuming Step 1 adds 2 entries to the conversation
+                            setCurrentPage('stepTwo');
+                            break;
+                        case 4: // Assuming Step 2 adds 2 more entries, making 4 in total
+                            setCurrentPage('stepThree');
+                            break;
+                        case 6: // Assuming Step 3 adds 2 more entries, making 6 in total
+                            setCurrentPage('stepFour');
+                            break;
+                        default:
+                            setCurrentPage('dynamicChat'); // For any other length
                     }
                 }
             }
         }
     }, [userData, activeExperimentId]);
+    
 
     
 

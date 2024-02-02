@@ -22,9 +22,17 @@
     align-items: flex-start;
 }
 
+
 .new-experiment {
     display: flex;
     align-items: center;
+    padding: 5px;
+}
+
+.new-experiment:hover {
+    cursor: pointer;
+    border-radius: 15px;
+   background-color: #61646a;
 }
 
 .sidebar-icon.bottom {
@@ -93,11 +101,17 @@ width: 100%;
 
 .experiment-title {
     position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px 0px 0px 8px;
     width: 99%; /* Adjust to your desired width */
     overflow: hidden;
     white-space: nowrap;
     margin-bottom: 15px;
+    margin-left: -5px;
+    padding-left: 5px;
     color: white; /* Set the text color */
+    
   }
   
   .experiment-title:after {
@@ -111,6 +125,11 @@ width: 100%;
     mask-image: linear-gradient(to right, transparent, rgb(36, 36, 36));
   }
 
+  .experiment-title:hover {
+    background-color: #61646a;
+    cursor: pointer;
+  }
+
 .menu-item:last-child {
     border-bottom: none;
 }
@@ -118,3 +137,11 @@ width: 100%;
 .menu-item:hover {
     background-color: #61646a;
 }
+
+/* In Sidebar.css */
+.active-experiment {
+    background-color: #f0f0f0;
+    color: #333; 
+
+}
+

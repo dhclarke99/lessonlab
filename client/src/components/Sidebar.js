@@ -60,19 +60,18 @@ const Sidebar = () => {
                 <img src={measuringCup} alt="Icon" className="icon-image" />
                 New Experiment
                 </div>
-                
                 <div className='existing-experiments'>
-                    <h3>Previous Tests</h3>
-                    {sortedExperiments.map((experiment) => (
-                        <div
-                            className='experiment-title'
-                            key={experiment.experiment._id}
-                            onClick={() => selectExperiment(experiment.experiment._id)}
-                        >
-                            {experiment.experiment.title}
-                        </div>
-                    ))}
-                </div>
+                <h3>Previous Tests</h3>
+                {sortedExperiments.map((experiment) => (
+                    <div
+                        className={`experiment-title ${experiment.experiment._id === activeExperimentId ? 'active-experiment' : ''}`}
+                        key={experiment.experiment._id}
+                        onClick={() => selectExperiment(experiment.experiment._id)}
+                    >
+                        {experiment.experiment.title}
+                    </div>
+                ))}
+            </div>
             </div>
             
             <div>
