@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../utils/css/Sidebar.css';
-import measuringCup from '../assets/images/measuringcup.jpeg';
+import measuringCup from '../assets/images/measuringcup-2.jpg';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER_BY_ID, } from '../utils/queries';
 import { CREATE_EXPERIMENT } from '../utils/mutations'

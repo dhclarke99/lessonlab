@@ -2,7 +2,7 @@ import React, { useState }from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
 import StepTwo from './StepTwo'
-import measuringCup from '../assets/images/measuringcup.jpeg';
+import measuringCup from '../assets/images/measuringcup-2.jpg';
 import '../utils/css/StepThree.css';
 import Auth from '../utils/auth';
 

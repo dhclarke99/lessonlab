@@ -1,6 +1,6 @@
 import React from 'react';
 import '../utils/css/Intro.css';
-import measuringCup from '../assets/images/measuringcup.jpeg'
+import measuringCup from '../assets/images/measuringcup-2.jpg'
 
 const Intro = () => {
     return (

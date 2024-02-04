@@ -37,6 +37,7 @@
 .user-response h1 {
     font-size: 16px;
     font-weight: 350;
+    line-height: 1.5;
 }
 
 .gpt-response-content header {
@@ -47,6 +48,7 @@
 .gpt-response-content h1 {
     font-size: 16px;
     font-weight: 350;
+    line-height: 1.5;
 }
 
 .buttons {

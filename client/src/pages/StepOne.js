@@ -1,6 +1,6 @@
 import React from 'react';
 import Intro from '../components/Intro'
-import measuringCup from '../assets/images/measuringcup.jpeg';
+import measuringCup from '../assets/images/measuringcup-2.jpg';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
 import { UPDATE_EXPERIMENT } from '../utils/mutations';

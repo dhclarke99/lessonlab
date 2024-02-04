@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
 import StepFour from './StepFour'; // Re-import StepFour
 import '../utils/css/DynamicChat.css';
-import measuringCup from '../assets/images/measuringcup.jpeg';
+import measuringCup from '../assets/images/measuringcup-2.jpg';
 import Auth from '../utils/auth';
 
 const DynamicChat = ({ activeExperimentId }) => {
