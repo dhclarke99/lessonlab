@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_BY_ID } from '../utils/queries';
 import { UPDATE_USER, UPDATE_EXPERIMENT } from '../utils/mutations';
 import Auth from '../utils/auth';
 import '../utils/css/ChatBox.css';
+import { useExperiment } from '../ExperimentContext'
 
 const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
+    const { chatInput, submitFlag, setChatInput } = useExperiment();
     const [isLoading, setIsLoading] = useState(false); 
     const [inputValue, setInputValue] = useState('');
     const [step, setStep] = useState(1);
@@ -23,6 +25,8 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
     
     const userGrade = userData?.user?.gradeLevel || 'Default Grade'; 
     const userSubject = userData?.user?.subject || 'Default Subject';
+
+   
    
     // Move the experiment-related logic inside the condition
     let experiment;
@@ -31,12 +35,28 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
     }
 
     const handleChange = (e) => {
-        setInputValue(e.target.value); // Update the inputValue state
-
+        setInputValue(e.target.value);
+        if (currentPage === 'stepFour' ) {
+            setChatInput(e.target.value); // Keep the context in sync
+        }
+        
     };
 
+     // useEffect to handle automatic submission on stepFour
+     useEffect(() => {
+        if (currentPage === 'stepFour' && submitFlag) {
+            handleFormSubmit();
+        }
+    }, [submitFlag, currentPage]);
+
+
     const handleFormSubmit = async (event) => {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault(); // Only call this if there's an event
+        }
+
+        let inputToSend = inputValue;
+
         // Update formData.getStartedPrompts with the current inputValue
         const updatedPrompts = [...formData.getStartedPrompts, inputValue];
         setFormData({
@@ -88,6 +108,7 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                         variables: { experimentId, input: { conversation: [`${prompt}` ,`${inputValue}`] } },
                     });
                 } else if (currentPage === 'stepFour') {
+                    inputToSend = chatInput;
                     const experimentId = activeExperimentId;
                     const prompt = `To help students with ${experiment ? experiment.title : "your objective"}, ChatGPT can help in several ways. Select one of the following for this experiment, but later there will be an opportunity to test all options.`;
                 
@@ -97,7 +118,7 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                             experimentId: activeExperimentId,
                             input: { 
                                 // Append just the new user input to the conversation
-                                conversation: [`${prompt}`, `${inputValue}`] 
+                                conversation: [`${prompt}`, `${inputToSend}`] 
                             },
                         },
                     }).then(async () => {
@@ -110,7 +131,7 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
                                 role: (index % 2 === 0) ? "assistant" : "user",
                                 content
                             })),
-                            { role: "user", content: inputValue }
+                            { role: "user", content: inputToSend }
                         ];
                 
                         console.log("Sending to ChatGPT API:", { messagesPayload });
@@ -199,7 +220,8 @@ const ChatBox = ({ currentPage, onStepOneClick, activeExperimentId }) => {
             }
 
             // Clear the input field and increment the step
-            setInputValue("");
+             setInputValue('');
+        setChatInput(''); 
             setStep(prevStep => prevStep + 1);
             onStepOneClick();
            

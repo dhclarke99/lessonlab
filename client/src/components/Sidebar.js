@@ -30,7 +30,7 @@ const Sidebar = () => {
         try {
             const { data } = await createExperiment({ variables: { input: { title: "New Experiment" } } });
             setActiveExperimentId(data.createExperiment._id);
-            
+            window.location.reload();
             // Additional actions if needed
         } catch (err) {
             console.error("Error creating new experiment:", err);
@@ -61,7 +61,11 @@ const Sidebar = () => {
                 New Experiment
                 </div>
                 <div className='existing-experiments'>
-                <h3>Previous Tests</h3>
+                    <header>
+                    <h3>Previous Tests</h3>
+                    </header>
+                    <div className='existing-experiments-body'>
+                
                 {sortedExperiments.map((experiment) => (
                     <div
                         className={`experiment-title ${experiment.experiment._id === activeExperimentId ? 'active-experiment' : ''}`}
@@ -71,6 +75,7 @@ const Sidebar = () => {
                         {experiment.experiment.title}
                     </div>
                 ))}
+</div>
             </div>
             </div>
             

@@ -16,7 +16,7 @@ import Auth from '../utils/auth';
 import { useExperiment } from '../ExperimentContext'; 
 
 const Main = () => {
-    const { activeExperimentId, setActiveExperimentId } = useExperiment();
+    const { activeExperimentId, setActiveExperimentId, chatInput, setChatInput  } = useExperiment();
     const [currentPage, setCurrentPage] = useState('getStarted'); // Initial state set to 'getStarted'
     const scrollableRef = useRef(null);
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
@@ -191,7 +191,7 @@ console.log("Main active id", activeExperimentId)
 
             {currentPage !== 'getStarted' && <ChatBox currentPage={currentPage} onStepOneClick={handleStepOneClick} activeExperimentId={activeExperimentId}/>}
             <footer className="main-footer">
-                <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, <a href='hey'>contact us.</a></p>
+                <p> Lesson Lab is developed at the Stanford University Graduate School of Education. For questions, <a href='https://ed.stanford.edu/'>contact us.</a></p>
             </footer>
         </div>
     );

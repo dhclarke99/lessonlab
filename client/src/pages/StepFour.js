@@ -5,14 +5,22 @@ import StepThree from './StepThree'
 import measuringCup from '../assets/images/measuringcup-2.jpg';
 import '../utils/css/StepFour.css';
 import Auth from '../utils/auth';
+import { useExperiment } from '../ExperimentContext'
 
 const StepFour = (props) => {
     const { activeExperimentId } = props; 
+    const { submitChatInput }= useExperiment();
     const userId = Auth.getProfile().data._id;
+
 
     const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_ID, {
         variables: { userId },
     });
+
+    const handleClick = (text) => {
+        submitChatInput(text); 
+    
+    };
 
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
@@ -47,15 +55,15 @@ const StepFour = (props) => {
                 <header>Lesson Lab</header>
                 <h1>To help students with {experiment.title}, ChatGPT can help in several ways. Select one of the following for this experiment, but later there will be an opportunity to test all options.</h1>
                 <div className='buttons'>
-                <button className='experiment-btn'>
+                <button className='experiment-btn' onClick={() => handleClick('Help me prepare instructional materials.')}>
                     <h1>Help me prepare instructional materials</h1>
                 <p>What is one reason that some students find the objective challenging?</p>
                 </button>
-                <button className='experiment-btn'>
+                <button className='experiment-btn'  onClick={() => handleClick('Help me plan classroom activities.')}>
                     <h1>Help me plan classroom activities</h1>
                 <p>What is one reason that some students find the objective challenging?</p>
                 </button>
-                <button className='experiment-btn'>
+                <button className='experiment-btn' onClick={() => handleClick('Help me design a student learning tool.')}>
                     <h1>Help me design a student learning tool</h1>
                 <p>What is one reason that some students find the objective challenging?</p>
                 </button>

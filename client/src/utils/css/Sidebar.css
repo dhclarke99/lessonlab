@@ -91,7 +91,15 @@
 .existing-experiments {
 margin-top: 20px;
 width: 100%;
+
 }
+
+.existing-experiments-body {
+    max-height: 500px; /* Adjust this value based on your sidebar's height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Hides horizontal scrollbar */
+}
+
 
 .existing-experiments h3{
     font-weight: 500;
@@ -111,8 +119,11 @@ width: 100%;
     margin-left: -5px;
     padding-left: 5px;
     color: white; /* Set the text color */
-    
+   
   }
+
+ 
+
   
   .experiment-title:after {
     content: '';

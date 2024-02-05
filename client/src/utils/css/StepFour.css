@@ -67,6 +67,21 @@
     background-color: white;
 }
 
+.experiment-btn:hover {
+
+    background-color: #F1FAFB
+}
+
+.experiment-btn:active {
+
+    background-color: #F1FAFB
+}
+
+
+.experiment-btn.clicked {
+    background-color: #F1FAFB
+}
+
 .experiment-btn h1 {
     color: black;
     margin-top: 5px;
