@@ -17,12 +17,11 @@ const StepThree = (props) => {
     if (userLoading) return <p>Loading...</p>;
     if (userError) return <p>Error: {userError.message}</p>;
     const experiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
-console.log("step 3 Active ID", activeExperimentId)
-    console.log("USer DATA", userData.user)
+
     if (!experiment) return <p>Experiment not found</p>;
 
     const firstInitial = userData.user.firstname[0];
-console.log(userData)
+
     return (
         <div className="step-three-container">
             <StepTwo activeExperimentId={activeExperimentId}/>

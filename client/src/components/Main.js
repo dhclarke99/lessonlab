@@ -83,7 +83,7 @@ const Main = () => {
 
     const scrollToBottom = () => {
         // Scroll the div to the bottom
-        console.log('scrolling')
+  
         const scrollable = scrollableRef.current;
         if (scrollable) {
             scrollable.scrollTop = scrollable.scrollHeight;
@@ -132,7 +132,7 @@ const Main = () => {
                 });
     
                 const data = await response.json();
-                console.log(data)
+              
                 setApiResponse(data.message.content.split('\n')); 
                 setIsLoading(false);
             } catch (error) {
@@ -166,7 +166,6 @@ const Main = () => {
         scrollToBottom();
     }, [currentPage]);
 
-console.log("Main active id", activeExperimentId)
 
     return (
         <div className="main">

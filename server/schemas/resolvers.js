@@ -41,7 +41,7 @@ const resolvers = {
         await user.save();
 
         const token = signToken(user);
-        console.log(token, user)
+       
         return {
           token,
           user

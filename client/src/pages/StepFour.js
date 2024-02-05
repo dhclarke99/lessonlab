@@ -27,11 +27,11 @@ const StepFour = (props) => {
 
     // Find the experiment using the extracted activeExperimentId
     const experiment = userData.user.experiments.find(exp => exp.experiment._id === activeExperimentId)?.experiment;
-    console.log("step 4 Active ID", activeExperimentId)
+ 
     if (!experiment) return <p>Experiment not found</p>;
 
     const firstInitial = userData.user.firstname[0];
-    console.log(userData);
+   
 
     return (
         <div className="step-four-container">
@@ -57,15 +57,15 @@ const StepFour = (props) => {
                 <div className='buttons'>
                 <button className='experiment-btn' onClick={() => handleClick('Help me prepare instructional materials.')}>
                     <h1>Help me prepare instructional materials</h1>
-                <p>What is one reason that some students find the objective challenging?</p>
+               
                 </button>
                 <button className='experiment-btn'  onClick={() => handleClick('Help me plan classroom activities.')}>
                     <h1>Help me plan classroom activities</h1>
-                <p>What is one reason that some students find the objective challenging?</p>
+            
                 </button>
                 <button className='experiment-btn' onClick={() => handleClick('Help me design a student learning tool.')}>
                     <h1>Help me design a student learning tool</h1>
-                <p>What is one reason that some students find the objective challenging?</p>
+              
                 </button>
                 </div>
                
