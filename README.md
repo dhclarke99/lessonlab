@@ -42,13 +42,6 @@ In the project directory, you can run the following scripts:
 
 Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ## Environment Setup
 
@@ -62,8 +55,6 @@ Create a `.env` file in the root directory to store environment variables such a
 
 ## Contributing
 
-New contributors should familiarize themselves with the project structure and component hierarchy. Check the `issues` tab in the project repository for open issues or feature requests.
+To contribute to Lesson Lab, please fork the repository and clone it to your local device. Create your feature branch, commit your changes, and push to the branch. Open a pull request to merge your work into the original repository.
 
----
 
-For any additional information or access requirements, please contact the project administrator.
